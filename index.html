@@ -9,21 +9,22 @@
   <title>LMNT Framework Manual</title>
   <style>
     :root {
-      --bg: #f7f8fa;
+      --bg: #f4f7fb;
+      --bg-top: #fbfcfe;
       --surface: #ffffff;
-      --surface-2: #f1f4f8;
-      --surface-3: #e8edf4;
-      --text: #172033;
-      --muted: #607086;
-      --border: #dce3ec;
-      --primary: #087f8c;
-      --primary-strong: #05636d;
-      --primary-soft: rgba(8,127,140,.10);
-      --blue: #1479d1;
-      --green: #14845b;
-      --amber: #aa6708;
-      --red: #c13a49;
-      --shadow: 0 18px 45px rgba(25,39,62,.08);
+      --surface-2: #eef3f8;
+      --surface-3: #e1e9f2;
+      --text: #111827;
+      --muted: #526376;
+      --border: #ccd7e5;
+      --primary: #067985;
+      --primary-strong: #045c66;
+      --primary-soft: rgba(6,121,133,.12);
+      --blue: #1269b8;
+      --green: #11784f;
+      --amber: #99600a;
+      --red: #b93345;
+      --shadow: 0 18px 45px rgba(15,33,56,.10);
       --header-height: 64px;
       --sidebar-width: 292px;
       --toc-width: 224px;
@@ -35,6 +36,7 @@
     @media (prefers-color-scheme: dark) {
       html:not([data-theme="light"]) {
         --bg: #0b1018;
+        --bg-top: #0b1018;
         --surface: #111925;
         --surface-2: #162130;
         --surface-3: #1c2a3b;
@@ -56,6 +58,7 @@
 
     html[data-theme="dark"] {
       --bg: #0b1018;
+      --bg-top: #0b1018;
       --surface: #111925;
       --surface-2: #162130;
       --surface-3: #1c2a3b;
@@ -75,21 +78,22 @@
     }
 
     html[data-theme="light"] {
-      --bg: #f7f8fa;
+      --bg: #f4f7fb;
+      --bg-top: #fbfcfe;
       --surface: #ffffff;
-      --surface-2: #f1f4f8;
-      --surface-3: #e8edf4;
-      --text: #172033;
-      --muted: #607086;
-      --border: #dce3ec;
-      --primary: #087f8c;
-      --primary-strong: #05636d;
-      --primary-soft: rgba(8,127,140,.10);
-      --blue: #1479d1;
-      --green: #14845b;
-      --amber: #aa6708;
-      --red: #c13a49;
-      --shadow: 0 18px 45px rgba(25,39,62,.08);
+      --surface-2: #eef3f8;
+      --surface-3: #e1e9f2;
+      --text: #111827;
+      --muted: #526376;
+      --border: #ccd7e5;
+      --primary: #067985;
+      --primary-strong: #045c66;
+      --primary-soft: rgba(6,121,133,.12);
+      --blue: #1269b8;
+      --green: #11784f;
+      --amber: #99600a;
+      --red: #b93345;
+      --shadow: 0 18px 45px rgba(15,33,56,.10);
       --code-bg: #111827;
       --code-text: #d6e2f0;
     }
@@ -99,7 +103,9 @@
     body {
       margin: 0;
       color: var(--text);
-      background: var(--bg);
+      background:
+        linear-gradient(180deg, var(--bg-top) 0, var(--bg) 380px),
+        var(--bg);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.65;
       text-rendering: optimizeLegibility;
@@ -128,7 +134,7 @@
       gap: 16px;
       padding: 0 22px;
       border-bottom: 1px solid var(--border);
-      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
       backdrop-filter: blur(16px);
     }
     .brand {
@@ -369,6 +375,8 @@
     }
 
     .grid { display: grid; gap: 14px; }
+    .lead + .grid { margin-top: 18px; }
+    .grid + .grid { margin-top: 22px; }
     .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .card {
@@ -376,7 +384,7 @@
       border-radius: var(--radius);
       background: var(--surface);
       padding: 20px;
-      box-shadow: 0 8px 28px rgba(35,52,80,.035);
+      box-shadow: 0 10px 30px rgba(35,52,80,.055);
     }
     .card h3, .card h4 { margin-top: 0; }
     .card p:last-child { margin-bottom: 0; }
@@ -519,6 +527,7 @@
       border: 1px solid var(--border);
       border-radius: 13px;
       background: var(--surface);
+      box-shadow: 0 8px 24px rgba(35,52,80,.04);
     }
     .flow-step:not(:last-child)::after {
       content: "→";
@@ -708,6 +717,8 @@
         <a href="#overview">Overview</a>
         <a href="#architecture">Architecture</a>
         <a href="#user-journey">User journey</a>
+        <a href="#quick-start">First 30 minutes</a>
+        <a href="#implementation-checklist">Implementation checklist</a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-label">Application shell</div>
@@ -732,16 +743,23 @@
         <a href="#realtime">Realtime architecture</a>
         <a href="#notifications">Notifications</a>
         <a href="#calls">Audio & video calls</a>
-        <a href="#realtime-limitations">Browser behavior</a>
+        <a href="#realtime-limitations">Push & browser behavior</a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-label">Development</div>
         <a href="#product-integration">Product integration</a>
+        <a href="#product-page-example">Route/menu example</a>
         <a href="#package-access">Private packages</a>
         <a href="#local-setup">Local setup</a>
         <a href="#configuration">Configuration</a>
         <a href="#security">Security</a>
+        <a href="#production-readiness">Production readiness</a>
         <a href="#troubleshooting">Troubleshooting</a>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-label">Reference</div>
+        <a href="#source-of-truth">Source of truth</a>
+        <a href="#glossary">Glossary</a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-label">Legal</div>
@@ -756,8 +774,8 @@
           <span class="eyebrow">Read as Element · Official Manual</span>
           <h1>LMNT Framework</h1>
           <p>
-            A reusable full-stack platform for building business applications without rebuilding authentication,
-            permissions, tenancy, navigation, communication, workflows, observability, and the application shell for every product.
+            A reusable full-stack platform for shipping business applications on a shared foundation: authentication,
+            tenancy, permissions, navigation, realtime communication, workflows, observability, settings, and the application shell.
           </p>
           <div class="hero-meta">
             <span class="version-badge">Backend 26.07.12-SNAPSHOT</span>
@@ -776,19 +794,19 @@
           <span class="section-kicker">Foundation</span>
           <h2><a class="anchor" href="#architecture">How LMNT is structured</a></h2>
           <p class="lead">
-            LMNT is delivered as two reusable packages. A product application depends on them and adds only its own business domain.
+            LMNT is delivered as two reusable packages. A product application consumes the framework backend and UI shell, then adds its own domain model, routes, screens, workflows and business rules.
           </p>
 
           <div class="grid two">
             <div class="card">
               <h3>Backend framework</h3>
               <p><code>com.titan:lmnt</code></p>
-              <p>Spring Boot auto-configuration, security, persistence, controllers, services, realtime messaging, workflow support, audit and platform integrations.</p>
+              <p>Spring Boot auto-configuration, security, persistence, REST controllers, services, realtime messaging, workflow support, audit trails, metrics, package-ready configuration and platform integrations.</p>
             </div>
             <div class="card">
               <h3>Frontend framework</h3>
               <p><code>@titan3rd/framework-ui</code></p>
-              <p>React application shell, login, dynamic navigation, protected routing, platform pages, notifications, chat, direct calls, theming, localization and reusable exports.</p>
+              <p>React application shell, login, dynamic navigation, protected routing, platform pages, notifications, chat, direct calls, theming, localization and typed exports for product applications.</p>
             </div>
           </div>
 
@@ -801,7 +819,7 @@
 
           <div class="callout">
             <div class="callout-title">Framework boundary</div>
-            If multiple products can reuse a capability, it may belong in LMNT. If only one product needs it, keep it in the product repository.
+            Keep reusable platform behavior in LMNT. Keep product-specific entities, pages, integrations, validation and business workflows in the product repository.
           </div>
         </section>
 
@@ -813,6 +831,58 @@
             <div class="card number-card"><span class="number">2</span><div><h3>Resolve context</h3><p>LMNT loads the current user, tenant, active organization, memberships and effective permissions.</p></div></div>
             <div class="card number-card"><span class="number">3</span><div><h3>Build navigation</h3><p>The backend returns only framework and product menus available in the current permission and subscription context.</p></div></div>
             <div class="card number-card"><span class="number">4</span><div><h3>Connect realtime</h3><p>The shell opens a SockJS/STOMP connection for presence, notifications, chat and call signalling.</p></div></div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="quick-start" data-search="quick start first 30 minutes setup package access run infrastructure backend frontend login route menu permission">
+          <span class="section-kicker">Start here</span>
+          <h2><a class="anchor" href="#quick-start">First 30 minutes</a></h2>
+          <p class="lead">Follow this path when you need a product application running on LMNT for the first time.</p>
+
+          <div class="flow" aria-label="First 30 minutes setup flow">
+            <div class="flow-step"><strong>Access</strong><span>Confirm GitHub Packages access for Maven and NPM.</span></div>
+            <div class="flow-step"><strong>Services</strong><span>Start MySQL, Redis, MinIO, RabbitMQ, Ollama and LiveKit as needed.</span></div>
+            <div class="flow-step"><strong>Runtime</strong><span>Set required environment variables and run the backend.</span></div>
+            <div class="flow-step"><strong>UI</strong><span>Run the product UI and verify login plus navigation.</span></div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Step</th><th>Done when</th></tr></thead>
+              <tbody>
+                <tr><td>Package access</td><td><code>npm install</code> and Maven dependency resolution can read private GitHub Packages.</td></tr>
+                <tr><td>Infrastructure</td><td>Required local services are healthy and credentials match the configured environment variables.</td></tr>
+                <tr><td>Backend</td><td>The application starts, <code>/api/app-info</code> returns product metadata and <code>/api/me</code> works after login.</td></tr>
+                <tr><td>Frontend</td><td>The LMNT shell renders login, sidebar, header and the product default route.</td></tr>
+                <tr><td>Access control</td><td>A non-admin user sees only the menu items granted through roles, direct permissions and active organization context.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            <div class="callout-title">Best first validation</div>
+            Create one protected product page, one matching product menu item and one permission grant. If that page appears in the sidebar and loads for a non-admin user, the core LMNT integration is wired correctly.
+          </div>
+        </section>
+
+        <section class="doc-section" id="implementation-checklist" data-search="implementation checklist product setup backend frontend menu permission route environment package workflow deployment readiness">
+          <span class="section-kicker">Start here</span>
+          <h2><a class="anchor" href="#implementation-checklist">Implementation checklist</a></h2>
+          <p class="lead">Use this sequence when starting a new LMNT-based product or checking whether an existing product is wired correctly.</p>
+
+          <div class="grid three">
+            <div class="card"><h3>Product developers</h3><p>Start with package access, product routes, menu rows, permission keys and workflow bindings.</p></div>
+            <div class="card"><h3>Administrators</h3><p>Focus on users, roles, direct permissions, organizations, menu management and settings visibility.</p></div>
+            <div class="card"><h3>Operators</h3><p>Review infrastructure, environment variables, secure cookies, allowed origins, Web Push keys and retention jobs.</p></div>
+          </div>
+
+          <div class="grid two">
+            <div class="card number-card"><span class="number">1</span><div><h3>Install packages</h3><p>Add <code>com.titan:lmnt</code> to the backend and <code>@titan3rd/framework-ui</code> to the product UI through GitHub Packages.</p></div></div>
+            <div class="card number-card"><span class="number">2</span><div><h3>Set product runtime</h3><p>Create the product record, configure <code>LMNT_PRODUCT_CODE</code>, and provide deployment-specific database, JWT, Redis, MinIO and optional service settings.</p></div></div>
+            <div class="card number-card"><span class="number">3</span><div><h3>Register routes and menus</h3><p>Export product routes in React, then create matching product menu rows with permissions so protected pages become reachable.</p></div></div>
+            <div class="card number-card"><span class="number">4</span><div><h3>Grant access deliberately</h3><p>Attach permissions to roles or direct users in the right global, tenant or organization scope and test with a non-admin account.</p></div></div>
+            <div class="card number-card"><span class="number">5</span><div><h3>Add product workflows</h3><p>Keep BPMN definitions in Flowable, bind feature keys in LMNT, and use the workflow integration API from product services.</p></div></div>
+            <div class="card number-card"><span class="number">6</span><div><h3>Production hardening</h3><p>Replace development credentials, enable HTTPS cookies, restrict WebSocket origins, configure Web Push keys and review module availability.</p></div></div>
           </div>
         </section>
 
@@ -1110,6 +1180,38 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <li><strong>Audit:</strong> registry state plus detailed historic activities.</li>
           </ul>
 
+          <h3>Product workflow integration</h3>
+          <p>Products interact with workflows through LMNT's integration facade, using business keys and feature keys instead of raw Flowable IDs in product code.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Capability</th><th>How product code should use it</th></tr></thead>
+              <tbody>
+                <tr><td>Start or get</td><td><code>POST /api/workflow-integrations/start-or-get</code> is idempotent by <code>businessKey</code> and workflow tenant.</td></tr>
+                <tr><td>Feature binding</td><td><code>featureKey</code> resolves through <code>lmnt_workflow_bindings</code>; tenant-specific bindings override global defaults.</td></tr>
+                <tr><td>Status tracking</td><td>LMNT stores registry rows in <code>lmnt_workflow_instances</code> with status, current tasks and variables.</td></tr>
+                <tr><td>Message correlation</td><td>Products send their own message names and variables through <code>/api/workflow-integrations/messages</code>.</td></tr>
+                <tr><td>Task completion</td><td>Completion by business key requires the current user to be assigned or claimable through LMNT role names used as candidate groups.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="code-block">
+            <div class="code-head"><span>Workflow start-or-get</span><button class="copy-btn">Copy</button></div>
+            <pre><code>{
+  "featureKey": "BOOKING_LIFECYCLE",
+  "businessKey": "HMS_BOOKING:100",
+  "businessType": "BOOKING",
+  "sourceSystem": "HMS",
+  "roleAssignments": {
+    "managerGroup": "HMS_MANAGER"
+  },
+  "variables": {
+    "bookingId": 100,
+    "source": "WALK_IN"
+  }
+}</code></pre>
+          </div>
+          <p>Role assignments are validated against visible LMNT roles before being copied into process variables. Keep workflow variables simple and serializable; do not store JPA entities, credentials or large payloads in the process instance.</p>
+
           <h3>The Board</h3>
           <p>The Board implements projects and Kanban tasks with Backlog, To Do, In Progress, Review and Done transitions. Tasks can carry type, priority, assignee, business key and workflow instance metadata.</p>
 
@@ -1233,7 +1335,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           </ul>
 
           <h3>Full Notifications page</h3>
-          <p>Provides All/Unread and severity filters, refresh, bulk read action and deep-link navigation. The client reconciles with <code>/api/notifications/all/me</code> after connection, focus and visibility changes.</p>
+          <p>Provides All/Unread and severity filters, refresh, bulk read action, deep-link navigation and desktop-alert enablement. The client reconciles with <code>/api/notifications/all/me</code> after connection, focus and visibility changes.</p>
         </section>
 
         <section class="doc-section" id="calls" data-search="calls audio video livekit incoming outgoing accept reject cancel end microphone camera signalling token room">
@@ -1261,9 +1363,10 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           </ul>
         </section>
 
-        <section class="doc-section" id="realtime-limitations" data-search="browser background minimized hidden closed tab web push service worker limitation notification call">
+        <section class="doc-section" id="realtime-limitations" data-search="browser background minimized hidden closed tab web push service worker vapid notification call desktop alerts">
           <span class="section-kicker">Browser behavior</span>
-          <h2><a class="anchor" href="#realtime-limitations">Current realtime limits</a></h2>
+          <h2><a class="anchor" href="#realtime-limitations">Push and browser behavior</a></h2>
+          <p class="lead">LMNT uses the active realtime socket while the app is open and Web Push for desktop alerts when a browser subscription is available.</p>
 
           <div class="table-wrap">
             <table>
@@ -1272,20 +1375,41 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
                 <tr><td>Tab visible and active</td><td>Realtime notifications, presence, chat and calls operate through the active socket.</td></tr>
                 <tr><td>Tab open but unfocused/hidden</td><td>The socket normally remains connected, but browser throttling and device power policies can delay timers or networking.</td></tr>
                 <tr><td>Browser minimized</td><td>Usually similar to a hidden tab while the browser process remains alive.</td></tr>
-                <tr><td>Tab or browser closed</td><td>No socket is active, therefore incoming calls and in-app notifications cannot be delivered by the current frontend.</td></tr>
+                <tr><td>Tab or browser closed</td><td>The socket is gone. Desktop alerts require an active Web Push subscription, browser permission and valid VAPID configuration.</td></tr>
               </tbody>
             </table>
           </div>
 
-          <div class="callout danger">
-            <div class="callout-title">Web Push is not implemented in this source snapshot</div>
-            The ZIP defines <code>lmnt.web-push.public-key</code>, <code>private-key</code> and <code>subject</code> properties, but it contains no browser service worker, PushSubscription registration UI or backend push-dispatch implementation. These properties are reserved configuration only in version 26.07.12.
+          <h3>Web Push configuration</h3>
+          <ul>
+            <li>The public key is exposed through <code>GET /api/web-push/public-key</code>.</li>
+            <li>The service worker is served from <code>/api/web-push/service-worker.js</code>.</li>
+            <li>Subscriptions are stored against the authenticated user and current product/tenant context.</li>
+            <li>The Notifications page exposes a desktop-alert enablement action when browser support is available.</li>
+            <li>Production deployments require HTTPS for reliable service worker and push-subscription behavior.</li>
+          </ul>
+
+          <div class="callout warning">
+            <div class="callout-title">VAPID keys must be stable</div>
+            Configure <code>LMNT_WEB_PUSH_PUBLIC_KEY</code>, <code>LMNT_WEB_PUSH_PRIVATE_KEY</code> and <code>LMNT_WEB_PUSH_SUBJECT</code> per environment. Regenerating keys can invalidate existing browser subscriptions.
           </div>
         </section>
 
         <section class="doc-section" id="product-integration" data-search="product integration createLmntApp routes defaultRoute productLogoPath frontendVersion headerLinks backend menu permission product code">
           <span class="section-kicker">Development</span>
           <h2><a class="anchor" href="#product-integration">Building a product on LMNT</a></h2>
+          <p class="lead">A product should depend on LMNT rather than copy framework code. The backend owns product business APIs; the frontend supplies product screens inside the LMNT shell.</p>
+
+          <h3>Backend dependency</h3>
+          <div class="code-block">
+            <div class="code-head"><span>pom.xml</span><button class="copy-btn">Copy</button></div>
+            <pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.titan&lt;/groupId&gt;
+  &lt;artifactId&gt;lmnt&lt;/artifactId&gt;
+  &lt;version&gt;26.07.12-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+          </div>
+          <p>Product backend code should stay focused on product controllers, services, entities, DTOs, product workflows and domain configuration.</p>
 
           <h3>Frontend entry point</h3>
           <div class="code-block">
@@ -1335,6 +1459,56 @@ export const productRoutes: LmntProductRoute[] = [
 
           <h3>Product metadata</h3>
           <p>The backend <code>/api/app-info</code> response uses the configured product record for name, code and description, while resolving product and framework versions independently where available.</p>
+
+          <div class="callout">
+            <div class="callout-title">Public route exception</div>
+            Product routes are protected by default. Set <code>requiresAuth: false</code> only for pages that must render outside the authenticated LMNT application layout.
+          </div>
+        </section>
+
+        <section class="doc-section" id="product-page-example" data-search="route menu permission example product page access denied sidebar visible role grant product menu">
+          <span class="section-kicker">Development</span>
+          <h2><a class="anchor" href="#product-page-example">Route, menu and permission example</a></h2>
+          <p class="lead">A protected product page becomes usable only when the React route, menu data and permission grant describe the same page.</p>
+
+          <h3>1. Register the route</h3>
+          <div class="code-block">
+            <div class="code-head"><span>ui/src/routes.tsx</span><button class="copy-btn">Copy</button></div>
+            <pre><code>import type { LmntProductRoute } from "@titan3rd/framework-ui"
+import { BookingsPage } from "./pages/BookingsPage"
+
+export const productRoutes: LmntProductRoute[] = [
+  { path: "/hms/bookings", element: &lt;BookingsPage /&gt; }
+]</code></pre>
+          </div>
+
+          <h3>2. Create the menu item</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Menu field</th><th>Example value</th><th>Why it matters</th></tr></thead>
+              <tbody>
+                <tr><td>Product</td><td><code>HMS</code></td><td>Must match the active product record and <code>LMNT_PRODUCT_CODE</code>.</td></tr>
+                <tr><td>Title</td><td><code>Bookings</code></td><td>Label shown in the sidebar after translation/icon resolution.</td></tr>
+                <tr><td>URL</td><td><code>/hms/bookings</code></td><td>Must match the registered React route exactly.</td></tr>
+                <tr><td>Icon</td><td><code>CalendarCheck</code></td><td>Resolved as a Lucide icon by the framework sidebar.</td></tr>
+                <tr><td>Permission</td><td><code>HMS_BOOKINGS_VIEW</code></td><td>User must receive this permission through a role or direct grant.</td></tr>
+                <tr><td>Display order</td><td><code>20</code></td><td>Controls where the item appears within its section.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>3. Grant the permission</h3>
+          <ul class="checklist">
+            <li>Create or activate <code>HMS_BOOKINGS_VIEW</code>.</li>
+            <li>Bind it to the correct product, tenant or organization scope when the page should not be global.</li>
+            <li>Assign it to a role, or grant it directly to a user for a narrow exception.</li>
+            <li>Switch to the target organization and test with a non-admin account.</li>
+          </ul>
+
+          <div class="callout warning">
+            <div class="callout-title">Most common mismatch</div>
+            If the route exists but the URL is missing from <code>/api/menu</code>, LMNT treats the page as unauthorized and shows Access Denied. Fix the menu item, permission grant or active organization context before changing React code.
+          </div>
         </section>
 
         <section class="doc-section" id="package-access" data-search="package access github packages npm maven pat token private registry settings xml npmrc dependency version">
@@ -1437,10 +1611,12 @@ npm run dev</code></pre></div>
                 <tr><td>MinIO</td><td><code>LMNT_MINIO_ENDPOINT</code>, <code>LMNT_MINIO_USERNAME</code>, <code>LMNT_MINIO_PASSWORD</code></td></tr>
                 <tr><td>RabbitMQ</td><td><code>LMNT_RABBITMQ_HOST</code>, <code>LMNT_RABBITMQ_PORT</code>, <code>LMNT_RABBITMQ_USERNAME</code>, <code>LMNT_RABBITMQ_PASSWORD</code></td></tr>
                 <tr><td>LiveKit</td><td><code>LMNT_LIVEKIT_URL</code>, <code>LMNT_LIVEKIT_API_KEY</code>, <code>LMNT_LIVEKIT_API_SECRET</code></td></tr>
+                <tr><td>Web Push</td><td><code>LMNT_WEB_PUSH_PUBLIC_KEY</code>, <code>LMNT_WEB_PUSH_PRIVATE_KEY</code>, <code>LMNT_WEB_PUSH_SUBJECT</code></td></tr>
                 <tr><td>Communication scope</td><td><code>LMNT_SCOPE_CHAT</code>, <code>LMNT_SCOPE_CALLS</code>, <code>LMNT_WEBSOCKET_ALLOWED_ORIGINS</code></td></tr>
                 <tr><td>AI</td><td><code>LMNT_AI_SERVER</code> plus model/context settings exposed by application properties and Settings APIs.</td></tr>
                 <tr><td>Razorpay</td><td><code>LMNT_RAZORPAY_KEY_ID</code>, <code>LMNT_RAZORPAY_KEY_SECRET</code></td></tr>
                 <tr><td>Authentication</td><td><code>LMNT_JWT_SECRET</code>, <code>LMNT_AUTH_COOKIE_SECURE</code>, <code>LMNT_AUTH_COOKIE_MAX_AGE_SECONDS</code></td></tr>
+                <tr><td>Retention jobs</td><td><code>LMNT_ANALYTICS_RETENTION_MINUTES</code>, <code>LMNT_BROADCAST_NOTIFICATION_RETENTION_DAYS</code>, chat attachment orphan-retention settings.</td></tr>
                 <tr><td>User inactivity</td><td><code>LMNT_USER_INACTIVITY_DISABLE_ENABLED</code>, <code>...AFTER_DAYS</code>, <code>...CRON</code>, <code>...ZONE</code></td></tr>
               </tbody>
             </table>
@@ -1454,6 +1630,7 @@ npm run dev</code></pre></div>
             <li>Use a strong deployment-specific JWT secret.</li>
             <li>Enable secure cookies behind HTTPS.</li>
             <li>Restrict WebSocket allowed origins to trusted product origins.</li>
+            <li>Serve production products over HTTPS before enabling Web Push subscriptions.</li>
             <li>Keep package tokens and registry credentials outside source control.</li>
             <li>Replace all development Compose passwords.</li>
             <li>Do not expose AI, MinIO, Redis, RabbitMQ, database or LiveKit secrets through frontend APIs.</li>
@@ -1465,6 +1642,51 @@ npm run dev</code></pre></div>
           <div class="callout warning">
             <div class="callout-title">CSRF design note</div>
             Spring Security CSRF is disabled while authentication uses an HttpOnly SameSite=Lax cookie. Review this decision for each production deployment, particularly when cross-site embedding or non-idempotent browser requests are introduced.
+          </div>
+        </section>
+
+        <section class="doc-section" id="production-readiness" data-search="production readiness deployment checklist https jwt secrets cookie origins vapid backups monitoring retention admin">
+          <span class="section-kicker">Operations</span>
+          <h2><a class="anchor" href="#production-readiness">Production readiness checklist</a></h2>
+          <p class="lead">Before exposing an LMNT-based product outside local development, verify the platform foundation and the product-specific configuration together.</p>
+
+          <div class="grid two">
+            <div class="card">
+              <h3>Security</h3>
+              <ul class="checklist">
+                <li>Use environment-specific JWT and encryption secrets.</li>
+                <li>Set <code>LMNT_AUTH_COOKIE_SECURE=true</code> behind HTTPS.</li>
+                <li>Restrict <code>LMNT_WEBSOCKET_ALLOWED_ORIGINS</code> to trusted product origins.</li>
+                <li>Remove package tokens from source, images and frontend-accessible files.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Infrastructure</h3>
+              <ul class="checklist">
+                <li>Replace all Compose development passwords.</li>
+                <li>Back up MySQL and object storage according to the product's recovery target.</li>
+                <li>Confirm Redis, RabbitMQ, MinIO, Flowable and LiveKit are either configured or intentionally disabled.</li>
+                <li>Configure stable Web Push VAPID keys before enabling desktop alerts.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Access control</h3>
+              <ul class="checklist">
+                <li>Review seeded admin users and remove temporary accounts.</li>
+                <li>Test critical routes with a non-admin user in each required organization.</li>
+                <li>Confirm product subscriptions expose only the intended URL prefixes and permissions.</li>
+                <li>Review separation-of-duties warnings before go-live.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Operations</h3>
+              <ul class="checklist">
+                <li>Set retention values for analytics, broadcast notifications and orphaned attachments.</li>
+                <li>Confirm audit/API metrics are visible in Dashboard and Analytics.</li>
+                <li>Document which preview modules are disabled, hidden or demo-only.</li>
+                <li>Verify Help and About links point to the correct product resources.</li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -1481,11 +1703,57 @@ npm run dev</code></pre></div>
                 <tr><td>Product menu is missing</td><td>Check <code>LMNT_PRODUCT_CODE</code>, enabled product record, menu permission and subscription access decision.</td></tr>
                 <tr><td>Chat says disconnected</td><td>Check <code>/chat-websocket</code>, allowed origins, reverse-proxy WebSocket support, STOMP connection and Redis bridge configuration.</td></tr>
                 <tr><td>Incoming calls do not ring</td><td>Keep the app tab open, verify the calls queue subscription, LiveKit credentials/URL and caller/callee communication scope.</td></tr>
+                <tr><td>Desktop alerts are disabled</td><td>Check browser notification permission, HTTPS/service-worker availability and stable <code>LMNT_WEB_PUSH_*</code> VAPID keys.</td></tr>
+                <tr><td>Workflow does not start</td><td>Confirm the BPMN definition is deployed, the feature binding exists, the business key is unique for the tenant and role assignments match visible LMNT roles.</td></tr>
                 <tr><td>AI is offline</td><td>Check the Ollama/AI endpoint, selected model and <code>/api/app/health</code>.</td></tr>
                 <tr><td>Package install returns 401/403</td><td>Verify classic PAT scopes, GitHub Packages login, <code>.npmrc</code>, Maven server ID and repository access.</td></tr>
                 <tr><td>Theme or language does not update</td><td>Confirm Settings permissions, theme API response, local theme mode and availability of the requested i18n bundle.</td></tr>
               </tbody>
             </table>
+          </div>
+
+          <h3>Common mistakes</h3>
+          <div class="grid two">
+            <div class="card"><h3>Route-only implementation</h3><p>Adding a React route without a matching menu item and permission grant creates an authenticated page that the shell will still block.</p></div>
+            <div class="card"><h3>Wrong active organization</h3><p>A user can lose access after switching organizations because organization-membership roles replace global user roles in that context.</p></div>
+            <div class="card"><h3>Product code mismatch</h3><p>If <code>LMNT_PRODUCT_CODE</code> does not match the registered product, product menus, app-info metadata and subscriptions will not line up.</p></div>
+            <div class="card"><h3>Secure cookie on local HTTP</h3><p>Setting secure cookies on a non-HTTPS local URL can make login look successful while the browser silently rejects the session cookie.</p></div>
+          </div>
+        </section>
+
+        <section class="doc-section" id="source-of-truth" data-search="source of truth routes menu permissions branding workflows configuration app-info product metadata">
+          <span class="section-kicker">Reference</span>
+          <h2><a class="anchor" href="#source-of-truth">Source of truth</a></h2>
+          <p class="lead">When behavior is dynamic, use the owning source below before changing unrelated code.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Behavior</th><th>Source of truth</th><th>Check first</th></tr></thead>
+              <tbody>
+                <tr><td>Rendered product page</td><td>Product UI <code>productRoutes</code></td><td>Path, component import and <code>requiresAuth</code>.</td></tr>
+                <tr><td>Sidebar visibility</td><td>Backend <code>/api/menu</code></td><td>Menu row active state, product code, permission and display order.</td></tr>
+                <tr><td>Action access</td><td>Backend permission service</td><td>Role grants, direct grants, scope and active organization.</td></tr>
+                <tr><td>Branding and app version</td><td><code>/api/app-info</code> and product metadata</td><td>Product record, product logo path and frontend package version.</td></tr>
+                <tr><td>Workflow process</td><td>Flowable definitions plus LMNT workflow bindings</td><td>Definition deployment, feature key binding, business key and tenant.</td></tr>
+                <tr><td>Deployment behavior</td><td>Environment variables</td><td>Secrets, service endpoints, allowed origins, communication scope and retention settings.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="doc-section" id="glossary" data-search="glossary tenant organization product scope business key feature key permission menu route membership">
+          <span class="section-kicker">Reference</span>
+          <h2><a class="anchor" href="#glossary">Glossary</a></h2>
+
+          <div class="grid two">
+            <div class="card"><h3>Tenant</h3><p>The top-level isolation boundary. Users, organizations and scoped permissions are evaluated inside this boundary.</p></div>
+            <div class="card"><h3>Organization</h3><p>The active operational context within a tenant. Switching organization can change roles, menus and available actions.</p></div>
+            <div class="card"><h3>Product</h3><p>An LMNT-based application that consumes the framework packages and contributes product-specific routes, menus, permissions and business code.</p></div>
+            <div class="card"><h3>Permission key</h3><p>A resource/action key such as <code>USER_MANAGEMENT_VIEW</code> or <code>HMS_BOOKINGS_VIEW</code> used by backend checks, menu filtering and UI controls.</p></div>
+            <div class="card"><h3>Menu row</h3><p>A backend navigation record that connects a label, URL, icon, order, product and permission to the rendered sidebar.</p></div>
+            <div class="card"><h3>Feature key</h3><p>A stable product or framework identifier used to bind a business feature to a Flowable process definition.</p></div>
+            <div class="card"><h3>Business key</h3><p>A product-owned identifier such as <code>HMS_BOOKING:100</code> used to find or continue the correct workflow instance.</p></div>
+            <div class="card"><h3>Communication scope</h3><p>The configured isolation level for chat and calls: global, product, tenant or organization.</p></div>
           </div>
         </section>
 
@@ -1541,10 +1809,10 @@ npm run dev</code></pre></div>
           <span class="section-kicker">Source record</span>
           <h2><a class="anchor" href="#source-note">Source accuracy note</a></h2>
           <p>
-            This manual was written from the uploaded <strong>Framework_LMNT-main (1).zip</strong> source snapshot and cross-checked against the current public <code>Titan3rd/mywebsite</code> placeholder page on July 16, 2026.
+            This manual was written from the local <strong>Framework_LMNT</strong> source snapshot, including the framework README, workflow integration notes, application properties, backend services and UI shell exports available on July 16, 2026.
           </p>
           <p>
-            The analyzed snapshot reports backend version <code>26.07.12-SNAPSHOT</code> and frontend package version <code>26.07.12</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions and infrastructure configuration.
+            The analyzed source reports backend version <code>26.07.12-SNAPSHOT</code> and frontend package version <code>26.07.12</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
           </p>
         </section>
 
