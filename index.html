@@ -692,7 +692,7 @@
       <span class="brand-text"><strong>LMNT Framework</strong><span>User & integration manual</span></span>
     </a>
 
-    <span class="version-badge">Source 26.07.12</span>
+    <span class="version-badge">Source 26.07.13</span>
 
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -778,8 +778,8 @@
             tenancy, permissions, navigation, realtime communication, workflows, observability, settings, and the application shell.
           </p>
           <div class="hero-meta">
-            <span class="version-badge">Backend 26.07.12-SNAPSHOT</span>
-            <span class="version-badge">UI 26.07.12</span>
+            <span class="version-badge">Backend 26.07.13-SNAPSHOT</span>
+            <span class="version-badge">UI 26.07.13</span>
             <span class="version-badge">Spring Boot 3.4.4</span>
             <span class="version-badge">React 19 · Vite 8</span>
           </div>
@@ -788,6 +788,11 @@
         <div class="search-empty" id="search-empty">
           <strong>No matching documentation section</strong><br />
           Try a broader term such as <code>menu</code>, <code>chat</code>, <code>workflow</code>, or <code>settings</code>.
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">26.07.13 source highlights</div>
+          This snapshot improves framework administration UX, product-aware notification delivery, Web Push setup diagnostics, ticket visibility rules, user-detail summaries, protected super-admin records and product-specific Help/About links while keeping product integration contracts stable.
         </div>
 
         <section class="doc-section" id="architecture" data-search="architecture backend frontend maven npm platform product reusable package spring boot react ui shell">
@@ -806,7 +811,7 @@
             <div class="card">
               <h3>Frontend framework</h3>
               <p><code>@titan3rd/framework-ui</code></p>
-              <p>React application shell, login, dynamic navigation, protected routing, platform pages, notifications, chat, direct calls, theming, localization and typed exports for product applications.</p>
+              <p>React application shell, login, dynamic navigation, protected routing, platform pages, notifications, chat, direct calls, desktop alert status, theming, localization and typed exports for product applications.</p>
             </div>
           </div>
 
@@ -956,7 +961,7 @@
 
           <h3>Help and About dynamicity</h3>
           <p>
-            Products can replace both links through <code>createLmntApp({ headerLinks })</code>. Without overrides, Help opens this manual and About opens the Titan3rd GitHub profile.
+            Products can replace both links through <code>createLmntApp({ headerLinks })</code>. Without overrides, Help opens this manual and About opens the Titan3rd GitHub profile. Product deployments should set both links explicitly when support or product information lives outside the framework manual.
           </p>
 
           <div class="code-block">
@@ -1104,8 +1109,8 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <div class="module"><div><div class="module-name">Dashboard</div><span class="status stable">Stable</span></div><div class="module-route">/dashboard</div><div class="module-desc">Identity context, permissions, active users, security discrepancy indicators, request telemetry, audit feed and MQ trace summary.</div></div>
             <div class="module"><div><div class="module-name">Analytics</div><span class="status stable">Stable</span></div><div class="module-route">/analytics</div><div class="module-desc">CPU, heap, threads, uptime, request history, infrastructure health matrix, API logs and audit logs.</div></div>
             <div class="module"><div><div class="module-name">API Trace</div><span class="status conditional">RabbitMQ</span></div><div class="module-route">/trace</div><div class="module-desc">Message-broker trace records filtered by status, product, date and exchange/routing/queue content.</div></div>
-            <div class="module"><div><div class="module-name">Users</div><span class="status stable">Stable</span></div><div class="module-route">/users</div><div class="module-desc">Profiles, tenant/org membership, roles, direct permissions, enable/disable, activity summary, API summary and profile images.</div></div>
-            <div class="module"><div><div class="module-name">Roles</div><span class="status stable">Stable</span></div><div class="module-route">/roles</div><div class="module-desc">Global or scoped roles, descriptions, permission assignment and role lifecycle management.</div></div>
+            <div class="module"><div><div class="module-name">Users</div><span class="status stable">Stable</span></div><div class="module-route">/users</div><div class="module-desc">Profiles, tenant/org membership, roles, direct permissions, enable/disable, activity summary, API summary, detail modal and protected SuperAdmin account handling.</div></div>
+            <div class="module"><div><div class="module-name">Roles</div><span class="status stable">Stable</span></div><div class="module-route">/roles</div><div class="module-desc">Global or scoped roles, descriptions, permission assignment, role lifecycle management and protected SADMIN role handling.</div></div>
             <div class="module"><div><div class="module-name">Permissions</div><span class="status stable">Stable</span></div><div class="module-route">/permissions</div><div class="module-desc">Resource/action permissions, scope metadata, activation state and tenant visibility/grantability.</div></div>
             <div class="module"><div><div class="module-name">Menu Management</div><span class="status stable">Stable</span></div><div class="module-route">/menu-management</div><div class="module-desc">Framework/product menu sections, items, icons, routes, order and permission binding.</div></div>
             <div class="module"><div><div class="module-name">Tenants</div><span class="status stable">Stable</span></div><div class="module-route">/tenants</div><div class="module-desc">Tenant isolation boundaries, domains, active state and deletion safeguards.</div></div>
@@ -1120,12 +1125,12 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <div class="module"><div><div class="module-name">Chat</div><span class="status conditional">Realtime</span></div><div class="module-route">/chat</div><div class="module-desc">Direct and group conversations, unread state, typing/presence, attachments, groups and audio/video call entry points.</div></div>
             <div class="module"><div><div class="module-name">AI Chat</div><span class="status conditional">Ollama</span></div><div class="module-route">/ai-chat</div><div class="module-desc">Streaming AI conversations, model selection, health checking, stop response and configurable context window.</div></div>
             <div class="module"><div><div class="module-name">The Wall</div><span class="status stable">Stable</span></div><div class="module-route">/wall</div><div class="module-desc">Announcements and events with images, comments, reactions, pinning and RSVP state.</div></div>
-            <div class="module"><div><div class="module-name">Notifications</div><span class="status stable">Stable</span></div><div class="module-route">/notifications</div><div class="module-desc">All personal and broadcast alerts, severity/status filters, read state, deep links and bulk mark-read.</div></div>
+            <div class="module"><div><div class="module-name">Notifications</div><span class="status stable">Stable</span></div><div class="module-route">/notifications</div><div class="module-desc">All personal and broadcast alerts, severity/status filters, read state, deep links, browser notification status and bulk mark-read.</div></div>
             <div class="module"><div><div class="module-name">Payments</div><span class="status conditional">Razorpay</span></div><div class="module-route">/payments</div><div class="module-desc">Razorpay dashboard, payment history, orders, filtering, export, checkout, verification and QR-code workflows.</div></div>
             <div class="module"><div><div class="module-name">Payroll</div><span class="status preview">Demo UI</span></div><div class="module-route">/payroll</div><div class="module-desc">Reference payroll register and payout interface. The source explicitly marks current data/actions as dummy preview behavior.</div></div>
             <div class="module"><div><div class="module-name">Expense Claims</div><span class="status preview">Demo UI</span></div><div class="module-route">/expense-claims</div><div class="module-desc">Reference claim submission, policy and payout UI. Current claim storage/upload behavior is dummy and not production-backed.</div></div>
             <div class="module"><div><div class="module-name">Product Subscriptions</div><span class="status stable">Stable</span></div><div class="module-route">/product-subscriptions</div><div class="module-desc">Product access plans, scope, status, billing interval, payment links, allowed permissions and URL prefixes.</div></div>
-            <div class="module"><div><div class="module-name">Tickets</div><span class="status stable">Stable</span></div><div class="module-route">/tickets</div><div class="module-desc">Support queue, comments, attachments, routing by user/product/role, status, completion and conversion to a Board task.</div></div>
+            <div class="module"><div><div class="module-name">Tickets</div><span class="status stable">Stable</span></div><div class="module-route">/tickets</div><div class="module-desc">Support queue, modal detail view, comments, compact attachments, copyable ticket IDs, tenant/org visibility, assignment routing, completion and conversion to a Board task.</div></div>
             <div class="module"><div><div class="module-name">Settings</div><span class="status stable">Stable</span></div><div class="module-route">/settings</div><div class="module-desc">Appearance, branding, language, security/payment metadata, infrastructure/cache and AI model settings.</div></div>
           </div>
         </section>
@@ -1159,8 +1164,8 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           <h2><a class="anchor" href="#identity-modules">Identity and administration</a></h2>
 
           <div class="grid two">
-            <div class="card"><h3>Users</h3><p>Create and update profiles, crop profile images, assign a primary tenant/organization, add multiple organization memberships, assign roles and direct permissions, enable/disable accounts and inspect activity/API summaries.</p></div>
-            <div class="card"><h3>Roles</h3><p>Create global, tenant or organization-scoped roles and manage assigned permissions through paginated search panels.</p></div>
+            <div class="card"><h3>Users</h3><p>Create and update profiles, crop profile images, assign a primary tenant/organization, add multiple organization memberships, assign roles and direct permissions, enable/disable accounts and inspect concise activity/API summaries. SuperAdmin records are protected from edit and disable actions in both UI and backend paths.</p></div>
+            <div class="card"><h3>Roles</h3><p>Create global, tenant or organization-scoped roles and manage assigned permissions through paginated search panels. The SADMIN role is treated as protected system data and cannot be modified through normal role actions.</p></div>
             <div class="card"><h3>Permissions</h3><p>Define resource, action, scope, product, tenant and organization. Permissions can be active/inactive and may be marked visible or grantable to tenants.</p></div>
             <div class="card"><h3>Tenants & organizations</h3><p>Tenants form isolation boundaries. Organizations live within tenants and supply the active operational context used by memberships and permission evaluation.</p></div>
           </div>
@@ -1252,7 +1257,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           <p>Subscriptions can restrict product menus and APIs using scope, status, dates, allowed permission keys and allowed URL prefixes. Current product access is evaluated before product menus are returned.</p>
 
           <h3>Tickets</h3>
-          <p>Users can create and follow support tickets. Support managers can route by user, product or role, change status, assign ownership, complete tickets, attach files and create linked Board tasks.</p>
+          <p>Users can create and follow support tickets. Tickets created inside a tenant or organization are visible to that tenant or organization, SADMIN users can review all scoped tickets, and assigned users can see tickets routed directly to them. The UI uses a modal detail view, shortened attachment labels and copyable ticket IDs.</p>
 
           <div class="callout warning">
             <div class="callout-title">Preview modules</div>
@@ -1287,6 +1292,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <li>Incoming and outgoing heartbeats: 20 seconds.</li>
             <li>Presence refresh: every 30 seconds while connected.</li>
             <li>Visible/focused tabs reconcile notifications and presence after returning to the foreground.</li>
+            <li>Foreground activity is reported so Web Push is avoided while the app window is already active.</li>
             <li>Optional Redis realtime bridge supports events across multiple application instances.</li>
           </ul>
 
@@ -1322,7 +1328,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
         <section class="doc-section" id="notifications" data-search="notifications alerts unread read broadcast personal bell dropdown deep link severity info warning danger mark all">
           <span class="section-kicker">Realtime</span>
           <h2><a class="anchor" href="#notifications">Notifications</a></h2>
-          <p>LMNT supports personal and broadcast notifications with title, message, severity/type, subject, deep link, read state and creation time.</p>
+          <p>LMNT supports personal and broadcast notifications with title, message, severity/type, subject, deep link, read state and creation time. Product-specific notifications are delivered only to subscriptions in the same product scope, while framework-level notifications may reach the user across products sharing the same LMNT database.</p>
 
           <h3>Header notification control</h3>
           <ul>
@@ -1335,7 +1341,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           </ul>
 
           <h3>Full Notifications page</h3>
-          <p>Provides All/Unread and severity filters, refresh, bulk read action, deep-link navigation and desktop-alert enablement. The client reconciles with <code>/api/notifications/all/me</code> after connection, focus and visibility changes.</p>
+          <p>Provides All/Unread and severity filters, refresh, bulk read action, deep-link navigation and a read-only browser notification status. The client reconciles with <code>/api/notifications/all/me</code> after connection, focus and visibility changes.</p>
         </section>
 
         <section class="doc-section" id="calls" data-search="calls audio video livekit incoming outgoing accept reject cancel end microphone camera signalling token room">
@@ -1366,13 +1372,13 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
         <section class="doc-section" id="realtime-limitations" data-search="browser background minimized hidden closed tab web push service worker vapid notification call desktop alerts">
           <span class="section-kicker">Browser behavior</span>
           <h2><a class="anchor" href="#realtime-limitations">Push and browser behavior</a></h2>
-          <p class="lead">LMNT uses the active realtime socket while the app is open and Web Push for desktop alerts when a browser subscription is available.</p>
+          <p class="lead">LMNT uses the active realtime socket while the app is open and Web Push for desktop alerts when a browser subscription is available and the app window is not foreground-active.</p>
 
           <div class="table-wrap">
             <table>
               <thead><tr><th>Browser state</th><th>Current expected behavior</th></tr></thead>
               <tbody>
-                <tr><td>Tab visible and active</td><td>Realtime notifications, presence, chat and calls operate through the active socket.</td></tr>
+                <tr><td>Tab visible and active</td><td>Realtime notifications, presence, chat and calls operate through the active socket. Web Push is intentionally skipped for active foreground windows.</td></tr>
                 <tr><td>Tab open but unfocused/hidden</td><td>The socket normally remains connected, but browser throttling and device power policies can delay timers or networking.</td></tr>
                 <tr><td>Browser minimized</td><td>Usually similar to a hidden tab while the browser process remains alive.</td></tr>
                 <tr><td>Tab or browser closed</td><td>The socket is gone. Desktop alerts require an active Web Push subscription, browser permission and valid VAPID configuration.</td></tr>
@@ -1384,14 +1390,21 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           <ul>
             <li>The public key is exposed through <code>GET /api/web-push/public-key</code>.</li>
             <li>The service worker is served from <code>/api/web-push/service-worker.js</code>.</li>
-            <li>Subscriptions are stored against the authenticated user and current product/tenant context.</li>
-            <li>The Notifications page exposes a desktop-alert enablement action when browser support is available.</li>
+            <li>Subscriptions are stored against the authenticated user and current product/tenant/organization context.</li>
+            <li>Product-specific pushes target matching product subscriptions; framework-level pushes can reach all product subscriptions for the user.</li>
+            <li>The Notifications page shows whether browser notifications are allowed, blocked, pending, unsupported or unavailable.</li>
+            <li>Users who want to disable desktop alerts should block site notifications in the browser permission UI.</li>
             <li>Production deployments require HTTPS for reliable service worker and push-subscription behavior.</li>
           </ul>
 
           <div class="callout warning">
             <div class="callout-title">VAPID keys must be stable</div>
-            Configure <code>LMNT_WEB_PUSH_PUBLIC_KEY</code>, <code>LMNT_WEB_PUSH_PRIVATE_KEY</code> and <code>LMNT_WEB_PUSH_SUBJECT</code> per environment. Regenerating keys can invalidate existing browser subscriptions.
+            Configure <code>LMNT_WEB_PUSH_PUBLIC_KEY</code>, <code>LMNT_WEB_PUSH_PRIVATE_KEY</code> and <code>LMNT_WEB_PUSH_SUBJECT</code> per backend environment. Keep the public key on one line. Regenerating keys can invalidate existing browser subscriptions.
+          </div>
+
+          <div class="code-block">
+            <div class="code-head"><span>Generate VAPID keys with Node</span><button class="copy-btn">Copy</button></div>
+            <pre><code>node -e "const c=require('crypto');const {privateKey,publicKey}=c.generateKeyPairSync('ec',{namedCurve:'prime256v1'});const pub=publicKey.export({format:'jwk'});const priv=privateKey.export({format:'jwk'});const pad=(v)=&gt;{const b=Buffer.from(v,'base64url');return Buffer.concat([Buffer.alloc(32-b.length),b])};console.log('LMNT_WEB_PUSH_PUBLIC_KEY='+Buffer.concat([Buffer.from([4]),pad(pub.x),pad(pub.y)]).toString('base64url'));console.log('LMNT_WEB_PUSH_PRIVATE_KEY='+Buffer.from(priv.d,'base64url').toString('base64url'));console.log('LMNT_WEB_PUSH_SUBJECT=mailto:admin@example.com');"</code></pre>
           </div>
         </section>
 
@@ -1406,7 +1419,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
   &lt;artifactId&gt;lmnt&lt;/artifactId&gt;
-  &lt;version&gt;26.07.12-SNAPSHOT&lt;/version&gt;
+  &lt;version&gt;26.07.13-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
           </div>
           <p>Product backend code should stay focused on product controllers, services, entities, DTOs, product workflows and domain configuration.</p>
@@ -1527,7 +1540,7 @@ export const productRoutes: LmntProductRoute[] = [
           <div class="code-block">
             <div class="code-head"><span>Install UI package</span><button class="copy-btn">Copy</button></div>
             <pre><code>npm login --scope=@titan3rd --auth-type=legacy --registry=https://npm.pkg.github.com
-npm install @titan3rd/framework-ui@26.07.12</code></pre>
+npm install @titan3rd/framework-ui@26.07.13</code></pre>
           </div>
 
           <h3>Maven dependency</h3>
@@ -1543,7 +1556,7 @@ npm install @titan3rd/framework-ui@26.07.12</code></pre>
 &lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
   &lt;artifactId&gt;lmnt&lt;/artifactId&gt;
-  &lt;version&gt;26.07.12-SNAPSHOT&lt;/version&gt;
+  &lt;version&gt;26.07.13-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
           </div>
           <p>The <code>github</code> repository ID must match the server entry in <code>~/.m2/settings.xml</code>.</p>
@@ -1595,7 +1608,7 @@ npm run dev</code></pre></div>
           </div>
         </section>
 
-        <section class="doc-section" id="configuration" data-search="configuration environment variables database flowable redis minio rabbitmq livekit auth jwt ai razorpay scope retention inactivity">
+        <section class="doc-section" id="configuration" data-search="configuration environment variables database flowable redis minio rabbitmq livekit auth jwt ai razorpay scope retention inactivity web push nginx service worker">
           <span class="section-kicker">Operations</span>
           <h2><a class="anchor" href="#configuration">Configuration reference</a></h2>
           <p class="lead">Use environment variables for credentials and deployment-specific endpoints.</p>
@@ -1611,7 +1624,7 @@ npm run dev</code></pre></div>
                 <tr><td>MinIO</td><td><code>LMNT_MINIO_ENDPOINT</code>, <code>LMNT_MINIO_USERNAME</code>, <code>LMNT_MINIO_PASSWORD</code></td></tr>
                 <tr><td>RabbitMQ</td><td><code>LMNT_RABBITMQ_HOST</code>, <code>LMNT_RABBITMQ_PORT</code>, <code>LMNT_RABBITMQ_USERNAME</code>, <code>LMNT_RABBITMQ_PASSWORD</code></td></tr>
                 <tr><td>LiveKit</td><td><code>LMNT_LIVEKIT_URL</code>, <code>LMNT_LIVEKIT_API_KEY</code>, <code>LMNT_LIVEKIT_API_SECRET</code></td></tr>
-                <tr><td>Web Push</td><td><code>LMNT_WEB_PUSH_PUBLIC_KEY</code>, <code>LMNT_WEB_PUSH_PRIVATE_KEY</code>, <code>LMNT_WEB_PUSH_SUBJECT</code></td></tr>
+                <tr><td>Web Push</td><td><code>LMNT_WEB_PUSH_PUBLIC_KEY</code>, <code>LMNT_WEB_PUSH_PRIVATE_KEY</code>, <code>LMNT_WEB_PUSH_SUBJECT</code>. Set these on the Spring backend process, not in frontend files or Nginx.</td></tr>
                 <tr><td>Communication scope</td><td><code>LMNT_SCOPE_CHAT</code>, <code>LMNT_SCOPE_CALLS</code>, <code>LMNT_WEBSOCKET_ALLOWED_ORIGINS</code></td></tr>
                 <tr><td>AI</td><td><code>LMNT_AI_SERVER</code> plus model/context settings exposed by application properties and Settings APIs.</td></tr>
                 <tr><td>Razorpay</td><td><code>LMNT_RAZORPAY_KEY_ID</code>, <code>LMNT_RAZORPAY_KEY_SECRET</code></td></tr>
@@ -1621,6 +1634,9 @@ npm run dev</code></pre></div>
               </tbody>
             </table>
           </div>
+
+          <h3>Reverse proxy notes</h3>
+          <p>Nginx should proxy <code>/api/web-push/</code> to the backend before the generic SPA fallback so <code>/api/web-push/public-key</code> and <code>/api/web-push/service-worker.js</code> are served by Spring. The normal <code>/api/</code> proxy is usually sufficient, but an explicit Web Push block makes the service-worker route harder to misroute or cache incorrectly.</p>
         </section>
 
         <section class="doc-section" id="security" data-search="security secrets jwt cookie https csrf same site bcrypt authorization package tokens production inactivity disable audit">
@@ -1630,7 +1646,7 @@ npm run dev</code></pre></div>
             <li>Use a strong deployment-specific JWT secret.</li>
             <li>Enable secure cookies behind HTTPS.</li>
             <li>Restrict WebSocket allowed origins to trusted product origins.</li>
-            <li>Serve production products over HTTPS before enabling Web Push subscriptions.</li>
+            <li>Serve production products over HTTPS before relying on Web Push subscriptions.</li>
             <li>Keep package tokens and registry credentials outside source control.</li>
             <li>Replace all development Compose passwords.</li>
             <li>Do not expose AI, MinIO, Redis, RabbitMQ, database or LiveKit secrets through frontend APIs.</li>
@@ -1666,7 +1682,7 @@ npm run dev</code></pre></div>
                 <li>Replace all Compose development passwords.</li>
                 <li>Back up MySQL and object storage according to the product's recovery target.</li>
                 <li>Confirm Redis, RabbitMQ, MinIO, Flowable and LiveKit are either configured or intentionally disabled.</li>
-                <li>Configure stable Web Push VAPID keys before enabling desktop alerts.</li>
+                <li>Configure stable Web Push VAPID keys on the backend before relying on desktop alerts.</li>
               </ul>
             </div>
             <div class="card">
@@ -1702,8 +1718,8 @@ npm run dev</code></pre></div>
                 <tr><td>Route shows Access Denied</td><td>Confirm the route URL is present in <code>/api/menu</code>, the permission is active/granted and the active organization is correct.</td></tr>
                 <tr><td>Product menu is missing</td><td>Check <code>LMNT_PRODUCT_CODE</code>, enabled product record, menu permission and subscription access decision.</td></tr>
                 <tr><td>Chat says disconnected</td><td>Check <code>/chat-websocket</code>, allowed origins, reverse-proxy WebSocket support, STOMP connection and Redis bridge configuration.</td></tr>
-                <tr><td>Incoming calls do not ring</td><td>Keep the app tab open, verify the calls queue subscription, LiveKit credentials/URL and caller/callee communication scope.</td></tr>
-                <tr><td>Desktop alerts are disabled</td><td>Check browser notification permission, HTTPS/service-worker availability and stable <code>LMNT_WEB_PUSH_*</code> VAPID keys.</td></tr>
+                <tr><td>Incoming calls do not ring</td><td>Verify the calls queue subscription, LiveKit credentials/URL, caller/callee communication scope and whether browser notifications are blocked for closed/background scenarios.</td></tr>
+                <tr><td>Desktop alerts are unavailable</td><td>Check browser notification permission, HTTPS/service-worker availability, <code>/api/web-push/public-key</code>, stable one-line <code>LMNT_WEB_PUSH_*</code> VAPID keys and reverse-proxy routing for <code>/api/web-push/service-worker.js</code>.</td></tr>
                 <tr><td>Workflow does not start</td><td>Confirm the BPMN definition is deployed, the feature binding exists, the business key is unique for the tenant and role assignments match visible LMNT roles.</td></tr>
                 <tr><td>AI is offline</td><td>Check the Ollama/AI endpoint, selected model and <code>/api/app/health</code>.</td></tr>
                 <tr><td>Package install returns 401/403</td><td>Verify classic PAT scopes, GitHub Packages login, <code>.npmrc</code>, Maven server ID and repository access.</td></tr>
@@ -1735,7 +1751,7 @@ npm run dev</code></pre></div>
                 <tr><td>Action access</td><td>Backend permission service</td><td>Role grants, direct grants, scope and active organization.</td></tr>
                 <tr><td>Branding and app version</td><td><code>/api/app-info</code> and product metadata</td><td>Product record, product logo path and frontend package version.</td></tr>
                 <tr><td>Workflow process</td><td>Flowable definitions plus LMNT workflow bindings</td><td>Definition deployment, feature key binding, business key and tenant.</td></tr>
-                <tr><td>Deployment behavior</td><td>Environment variables</td><td>Secrets, service endpoints, allowed origins, communication scope and retention settings.</td></tr>
+                <tr><td>Deployment behavior</td><td>Environment variables and reverse proxy config</td><td>Secrets, service endpoints, allowed origins, communication scope, Web Push keys, service-worker proxy routing and retention settings.</td></tr>
               </tbody>
             </table>
           </div>
@@ -1809,10 +1825,10 @@ npm run dev</code></pre></div>
           <span class="section-kicker">Source record</span>
           <h2><a class="anchor" href="#source-note">Source accuracy note</a></h2>
           <p>
-            This manual was written from the local <strong>Framework_LMNT</strong> source snapshot, including the framework README, workflow integration notes, application properties, backend services and UI shell exports available on July 16, 2026.
+            This manual was written from the local <strong>Framework_LMNT</strong> source snapshot, including the framework README, workflow integration notes, application properties, backend services and UI shell exports available on July 18, 2026.
           </p>
           <p>
-            The analyzed source reports backend version <code>26.07.12-SNAPSHOT</code> and frontend package version <code>26.07.12</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
+            The analyzed source reports backend version <code>26.07.13-SNAPSHOT</code> and frontend package version <code>26.07.13</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
           </p>
         </section>
 
