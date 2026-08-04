@@ -692,7 +692,7 @@
       <span class="brand-text"><strong>LMNT Framework</strong><span>User & integration manual</span></span>
     </a>
 
-    <span class="version-badge">Source 26.07.13</span>
+    <span class="version-badge">Source 26.08.01</span>
 
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -716,6 +716,7 @@
         <div class="sidebar-label">Start here</div>
         <a href="#overview">Overview</a>
         <a href="#architecture">Architecture</a>
+        <a href="#module-packages">Package map</a>
         <a href="#user-journey">User journey</a>
         <a href="#quick-start">First 30 minutes</a>
         <a href="#implementation-checklist">Implementation checklist</a>
@@ -750,6 +751,7 @@
         <a href="#product-integration">Product integration</a>
         <a href="#product-page-example">Route/menu example</a>
         <a href="#package-access">Private packages</a>
+        <a href="#ci-releases">CI & releases</a>
         <a href="#local-setup">Local setup</a>
         <a href="#configuration">Configuration</a>
         <a href="#security">Security</a>
@@ -778,8 +780,8 @@
             tenancy, permissions, navigation, realtime communication, workflows, observability, settings, and the application shell.
           </p>
           <div class="hero-meta">
-            <span class="version-badge">Backend 26.07.13-SNAPSHOT</span>
-            <span class="version-badge">UI 26.07.13</span>
+            <span class="version-badge">Backend 26.08.01</span>
+            <span class="version-badge">UI 26.08.01</span>
             <span class="version-badge">Spring Boot 3.4.4</span>
             <span class="version-badge">React 19 · Vite 8</span>
           </div>
@@ -791,40 +793,77 @@
         </div>
 
         <div class="callout">
-          <div class="callout-title">26.07.13 source highlights</div>
-          This snapshot improves framework administration UX, product-aware notification delivery, Web Push setup diagnostics, ticket visibility rules, user-detail summaries, protected super-admin records and product-specific Help/About links while keeping product integration contracts stable.
+          <div class="callout-title">26.08.01 source highlights</div>
+          This snapshot moves LMNT to a modular package structure with <code>lmnt-core</code> as the primary backend artifact, separate optional backend and UI feature packages, a runnable development reactor, optional Support-to-Board integration and split CI jobs for aggregate and per-module builds.
         </div>
 
-        <section class="doc-section" id="architecture" data-search="architecture backend frontend maven npm platform product reusable package spring boot react ui shell">
+        <section class="doc-section" id="architecture" data-search="architecture backend frontend maven npm platform product reusable package spring boot react ui shell modular core optional">
           <span class="section-kicker">Foundation</span>
           <h2><a class="anchor" href="#architecture">How LMNT is structured</a></h2>
           <p class="lead">
-            LMNT is delivered as two reusable packages. A product application consumes the framework backend and UI shell, then adds its own domain model, routes, screens, workflows and business rules.
+            LMNT is delivered as matched backend and UI modules. A product application starts with Core, then adds only the optional framework modules it needs.
           </p>
 
           <div class="grid two">
             <div class="card">
-              <h3>Backend framework</h3>
-              <p><code>com.titan:lmnt</code></p>
-              <p>Spring Boot auto-configuration, security, persistence, REST controllers, services, realtime messaging, workflow support, audit trails, metrics, package-ready configuration and platform integrations.</p>
+              <h3>Backend Core</h3>
+              <p><code>com.titan:lmnt-core</code></p>
+              <p>The primary Spring Boot artifact. It owns authentication, tenancy, organizations, users, roles, permissions, menus, product subscriptions, notifications, settings, storage, security, support tickets and the base application shell APIs.</p>
             </div>
             <div class="card">
-              <h3>Frontend framework</h3>
-              <p><code>@titan3rd/framework-ui</code></p>
-              <p>React application shell, login, dynamic navigation, protected routing, platform pages, notifications, chat, direct calls, desktop alert status, theming, localization and typed exports for product applications.</p>
+              <h3>Optional backend modules</h3>
+              <p><code>lmnt-operations</code>, <code>lmnt-workflow</code>, <code>lmnt-finance</code>, <code>lmnt-communication</code>, <code>lmnt-board</code>, <code>lmnt-webhook</code></p>
+              <p>Feature modules depend on Core and can be added independently by a product or by the development runtime.</p>
+            </div>
+            <div class="card">
+              <h3>UI Core</h3>
+              <p><code>@titan3rd/lmnt-ui-core</code></p>
+              <p>React application shell, login, dynamic navigation, protected routing, administration screens, support UI, notifications, theming, localization and typed exports for product applications.</p>
+            </div>
+            <div class="card">
+              <h3>Optional UI packages</h3>
+              <p><code>@titan3rd/lmnt-ui-operations</code>, <code>@titan3rd/lmnt-ui-workflow</code>, <code>@titan3rd/lmnt-ui-finance</code>, <code>@titan3rd/lmnt-ui-communication</code>, <code>@titan3rd/lmnt-ui-board</code>, <code>@titan3rd/lmnt-ui-webhook</code></p>
+              <p>Each package contributes screens, routes and navigation metadata for its matching backend module.</p>
             </div>
           </div>
 
           <div class="flow" aria-label="LMNT product architecture flow">
-            <div class="flow-step"><strong>LMNT backend</strong><span>Common platform APIs and services.</span></div>
-            <div class="flow-step"><strong>Product backend</strong><span>Business entities, controllers and rules.</span></div>
-            <div class="flow-step"><strong>LMNT UI shell</strong><span>Authentication, layout and platform screens.</span></div>
+            <div class="flow-step"><strong>Core backend</strong><span>Required platform APIs and services.</span></div>
+            <div class="flow-step"><strong>Feature modules</strong><span>Optional backend capabilities.</span></div>
+            <div class="flow-step"><strong>UI Core</strong><span>Authentication, layout and core screens.</span></div>
+            <div class="flow-step"><strong>UI modules</strong><span>Optional feature screens.</span></div>
             <div class="flow-step"><strong>Product pages</strong><span>Product-specific center content and routes.</span></div>
           </div>
 
           <div class="callout">
             <div class="callout-title">Framework boundary</div>
-            Keep reusable platform behavior in LMNT. Keep product-specific entities, pages, integrations, validation and business workflows in the product repository.
+            Keep reusable platform behavior in LMNT Core or the matching optional LMNT module. Keep product-specific entities, pages, validation and business workflows in the product repository.
+          </div>
+        </section>
+
+        <section class="doc-section" id="module-packages" data-search="module packages backend ui core operations workflow finance communication board webhook artifact npm maven">
+          <span class="section-kicker">Foundation</span>
+          <h2><a class="anchor" href="#module-packages">Modular package map</a></h2>
+          <p class="lead">Backend and UI modules are versioned together at <code>26.08.01</code>, but each package can be consumed and released separately.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Capability</th><th>Backend package</th><th>UI package</th><th>Required?</th></tr></thead>
+              <tbody>
+                <tr><td>Core platform</td><td><code>com.titan:lmnt-core</code></td><td><code>@titan3rd/lmnt-ui-core</code></td><td>Yes</td></tr>
+                <tr><td>Operations and observability</td><td><code>com.titan:lmnt-operations</code></td><td><code>@titan3rd/lmnt-ui-operations</code></td><td>Optional</td></tr>
+                <tr><td>Workflow</td><td><code>com.titan:lmnt-workflow</code></td><td><code>@titan3rd/lmnt-ui-workflow</code></td><td>Optional</td></tr>
+                <tr><td>Finance</td><td><code>com.titan:lmnt-finance</code></td><td><code>@titan3rd/lmnt-ui-finance</code></td><td>Optional</td></tr>
+                <tr><td>Communication</td><td><code>com.titan:lmnt-communication</code></td><td><code>@titan3rd/lmnt-ui-communication</code></td><td>Optional</td></tr>
+                <tr><td>Board</td><td><code>com.titan:lmnt-board</code></td><td><code>@titan3rd/lmnt-ui-board</code></td><td>Optional</td></tr>
+                <tr><td>Webhook</td><td><code>com.titan:lmnt-webhook</code></td><td><code>@titan3rd/lmnt-ui-webhook</code></td><td>Optional</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            <div class="callout-title">No aggregate dependency artifact</div>
+            There is no <code>lmnt-bom</code> and no single <code>com.titan:lmnt</code> package for consumers. Core is the base dependency; optional modules are added explicitly.
           </div>
         </section>
 
@@ -882,7 +921,7 @@
           </div>
 
           <div class="grid two">
-            <div class="card number-card"><span class="number">1</span><div><h3>Install packages</h3><p>Add <code>com.titan:lmnt</code> to the backend and <code>@titan3rd/framework-ui</code> to the product UI through GitHub Packages.</p></div></div>
+            <div class="card number-card"><span class="number">1</span><div><h3>Install packages</h3><p>Add <code>com.titan:lmnt-core</code> to the backend and <code>@titan3rd/lmnt-ui-core</code> to the product UI through GitHub Packages. Add optional LMNT modules only when the product uses those capabilities.</p></div></div>
             <div class="card number-card"><span class="number">2</span><div><h3>Set product runtime</h3><p>Create the product record, configure <code>LMNT_PRODUCT_CODE</code>, and provide deployment-specific database, JWT, Redis, MinIO and optional service settings.</p></div></div>
             <div class="card number-card"><span class="number">3</span><div><h3>Register routes and menus</h3><p>Export product routes in React, then create matching product menu rows with permissions so protected pages become reachable.</p></div></div>
             <div class="card number-card"><span class="number">4</span><div><h3>Grant access deliberately</h3><p>Attach permissions to roles or direct users in the right global, tenant or organization scope and test with a non-admin account.</p></div></div>
@@ -1130,7 +1169,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <div class="module"><div><div class="module-name">Payroll</div><span class="status preview">Demo UI</span></div><div class="module-route">/payroll</div><div class="module-desc">Reference payroll register and payout interface. The source explicitly marks current data/actions as dummy preview behavior.</div></div>
             <div class="module"><div><div class="module-name">Expense Claims</div><span class="status preview">Demo UI</span></div><div class="module-route">/expense-claims</div><div class="module-desc">Reference claim submission, policy and payout UI. Current claim storage/upload behavior is dummy and not production-backed.</div></div>
             <div class="module"><div><div class="module-name">Product Subscriptions</div><span class="status stable">Stable</span></div><div class="module-route">/product-subscriptions</div><div class="module-desc">Product access plans, scope, status, billing interval, payment links, allowed permissions and URL prefixes.</div></div>
-            <div class="module"><div><div class="module-name">Tickets</div><span class="status stable">Stable</span></div><div class="module-route">/tickets</div><div class="module-desc">Support queue, modal detail view, comments, compact attachments, copyable ticket IDs, tenant/org visibility, assignment routing, completion and conversion to a Board task.</div></div>
+            <div class="module"><div><div class="module-name">Tickets</div><span class="status stable">Stable</span></div><div class="module-route">/tickets</div><div class="module-desc">Support queue, modal detail view, comments, compact attachments, copyable ticket IDs, tenant/org visibility, assignment routing, completion and optional conversion to a work item when a Board integration is available.</div></div>
             <div class="module"><div><div class="module-name">Settings</div><span class="status stable">Stable</span></div><div class="module-route">/settings</div><div class="module-desc">Appearance, branding, language, security/payment metadata, infrastructure/cache and AI model settings.</div></div>
           </div>
         </section>
@@ -1246,7 +1285,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           <p>An internal community feed for announcements and events. It supports cover images, date ranges, locations, pinning, reactions, comments, RSVP and notification-linked deep navigation.</p>
         </section>
 
-        <section class="doc-section" id="finance-support" data-search="payments razorpay payroll expense claims product subscriptions tickets support attachments board task finance">
+        <section class="doc-section" id="finance-support" data-search="payments razorpay payroll expense claims product subscriptions tickets support attachments work item board task finance">
           <span class="section-kicker">Modules</span>
           <h2><a class="anchor" href="#finance-support">Finance and support</a></h2>
 
@@ -1258,6 +1297,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
 
           <h3>Tickets</h3>
           <p>Users can create and follow support tickets. Tickets created inside a tenant or organization are visible to that tenant or organization, SADMIN users can review all scoped tickets, and assigned users can see tickets routed directly to them. The UI uses a modal detail view, shortened attachment labels and copyable ticket IDs.</p>
+          <p>Support lives in Core. The link from a support ticket to a work item is optional and is supplied by an integration such as the Board module; products that do not include Board still keep the ticket queue.</p>
 
           <div class="callout warning">
             <div class="callout-title">Preview modules</div>
@@ -1418,10 +1458,11 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <div class="code-head"><span>pom.xml</span><button class="copy-btn">Copy</button></div>
             <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
-  &lt;artifactId&gt;lmnt&lt;/artifactId&gt;
-  &lt;version&gt;26.07.13-SNAPSHOT&lt;/version&gt;
+  &lt;artifactId&gt;lmnt-core&lt;/artifactId&gt;
+  &lt;version&gt;26.08.01&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
           </div>
+          <p>Add optional backend modules as separate dependencies, for example <code>com.titan:lmnt-workflow</code> for workflow APIs or <code>com.titan:lmnt-board</code> for Board APIs.</p>
           <p>Product backend code should stay focused on product controllers, services, entities, DTOs, product workflows and domain configuration.</p>
 
           <h3>Frontend entry point</h3>
@@ -1429,8 +1470,8 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <div class="code-head"><span>ui/src/main.tsx</span><button class="copy-btn">Copy</button></div>
             <pre><code>import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import { createLmntApp } from "@titan3rd/framework-ui"
-import "@titan3rd/framework-ui/styles.css"
+import { createLmntApp } from "@titan3rd/lmnt-ui-core"
+import "@titan3rd/lmnt-ui-core/styles.css"
 import packageJson from "../package.json"
 import { productRoutes } from "./routes"
 
@@ -1453,7 +1494,7 @@ createRoot(document.getElementById("root")).render(
           <h3>Route registration</h3>
           <div class="code-block">
             <div class="code-head"><span>ui/src/routes.tsx</span><button class="copy-btn">Copy</button></div>
-            <pre><code>import type { LmntProductRoute } from "@titan3rd/framework-ui"
+            <pre><code>import type { LmntProductRoute } from "@titan3rd/lmnt-ui-core"
 import { ProductDashboard } from "./pages/ProductDashboard"
 
 export const productRoutes: LmntProductRoute[] = [
@@ -1487,7 +1528,7 @@ export const productRoutes: LmntProductRoute[] = [
           <h3>1. Register the route</h3>
           <div class="code-block">
             <div class="code-head"><span>ui/src/routes.tsx</span><button class="copy-btn">Copy</button></div>
-            <pre><code>import type { LmntProductRoute } from "@titan3rd/framework-ui"
+            <pre><code>import type { LmntProductRoute } from "@titan3rd/lmnt-ui-core"
 import { BookingsPage } from "./pages/BookingsPage"
 
 export const productRoutes: LmntProductRoute[] = [
@@ -1540,8 +1581,9 @@ export const productRoutes: LmntProductRoute[] = [
           <div class="code-block">
             <div class="code-head"><span>Install UI package</span><button class="copy-btn">Copy</button></div>
             <pre><code>npm login --scope=@titan3rd --auth-type=legacy --registry=https://npm.pkg.github.com
-npm install @titan3rd/framework-ui@26.07.13</code></pre>
+npm install @titan3rd/lmnt-ui-core@26.08.01</code></pre>
           </div>
+          <p>Install optional UI modules separately, for example <code>npm install @titan3rd/lmnt-ui-workflow@26.08.01</code>.</p>
 
           <h3>Maven dependency</h3>
           <div class="code-block">
@@ -1555,11 +1597,41 @@ npm install @titan3rd/framework-ui@26.07.13</code></pre>
 
 &lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
-  &lt;artifactId&gt;lmnt&lt;/artifactId&gt;
-  &lt;version&gt;26.07.13-SNAPSHOT&lt;/version&gt;
+  &lt;artifactId&gt;lmnt-core&lt;/artifactId&gt;
+  &lt;version&gt;26.08.01&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+  &lt;groupId&gt;com.titan&lt;/groupId&gt;
+  &lt;artifactId&gt;lmnt-workflow&lt;/artifactId&gt;
+  &lt;version&gt;26.08.01&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
           </div>
-          <p>The <code>github</code> repository ID must match the server entry in <code>~/.m2/settings.xml</code>.</p>
+          <p>The <code>github</code> repository ID must match the server entry in <code>~/.m2/settings.xml</code>. Do not add optional modules unless the product uses them.</p>
+        </section>
+
+        <section class="doc-section" id="ci-releases" data-search="ci github actions release deploy publish backend ui all module changed paths pull request push">
+          <span class="section-kicker">Development</span>
+          <h2><a class="anchor" href="#ci-releases">CI and package releases</a></h2>
+          <p class="lead">GitHub Actions has both aggregate checks and change-filtered module jobs.</p>
+
+          <div class="grid two">
+            <div class="card">
+              <h3>Backend workflow</h3>
+              <p><code>Java CI with Maven</code> runs <code>Backend / all</code> for the full reactor and separate jobs for <code>core</code>, <code>operations</code>, <code>workflow</code>, <code>finance</code>, <code>communication</code>, <code>board</code> and <code>webhook</code>.</p>
+              <p>Pull requests verify changed backend modules. Pushes deploy only the changed module package to GitHub Packages.</p>
+            </div>
+            <div class="card">
+              <h3>UI workflow</h3>
+              <p><code>UI Library Release</code> runs <code>UI / all</code> for the workspace build and separate package jobs for <code>core</code>, <code>operations</code>, <code>workflow</code>, <code>finance</code>, <code>communication</code>, <code>board</code> and <code>webhook</code>.</p>
+              <p>Pull requests build changed UI packages. Pushes publish only the changed package to GitHub Packages.</p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-title">Manual runs</div>
+            <code>workflow_dispatch</code> intentionally marks every module as changed, so manual workflow runs execute the aggregate job and every module job.
+          </div>
         </section>
 
         <section class="doc-section" id="local-setup" data-search="local setup docker podman compose mysql redis minio rabbitmq ollama livekit phpmyadmin run backend frontend ports">
@@ -1593,9 +1665,11 @@ podman-compose -f compose.yml up -d</code></pre>
           </div>
 
           <h3>Backend</h3>
-          <div class="code-block"><div class="code-head"><span>Spring Boot</span><button class="copy-btn">Copy</button></div><pre><code>cd lmnt
-mvn clean install
+          <p>The repository root under <code>lmnt/</code> is a runnable development reactor named <code>lmnt-dev</code>. It depends on Core plus all optional backend modules so local development can run the framework as one application while published consumers still choose modules separately.</p>
+          <div class="code-block"><div class="code-head"><span>Spring Boot development runtime</span><button class="copy-btn">Copy</button></div><pre><code>cd lmnt
+mvn -DskipTests compile
 mvn spring-boot:run</code></pre></div>
+          <p>Development environment values should come from the shell, IDE run configuration or local env file. They are not duplicated in the Maven POM.</p>
 
           <h3>Frontend</h3>
           <div class="code-block"><div class="code-head"><span>React/Vite</span><button class="copy-btn">Copy</button></div><pre><code>cd ui
@@ -1825,10 +1899,10 @@ npm run dev</code></pre></div>
           <span class="section-kicker">Source record</span>
           <h2><a class="anchor" href="#source-note">Source accuracy note</a></h2>
           <p>
-            This manual was written from the local <strong>Framework_LMNT</strong> source snapshot, including the framework README, workflow integration notes, application properties, backend services and UI shell exports available on July 18, 2026.
+            This manual was updated from the local <strong>Framework_LMNT</strong> source snapshot, including the modular Maven reactor, UI workspace packages, workflow configuration, application properties, backend services and UI shell exports available on August 4, 2026.
           </p>
           <p>
-            The analyzed source reports backend version <code>26.07.13-SNAPSHOT</code> and frontend package version <code>26.07.13</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
+            The analyzed source reports backend and frontend package version <code>26.08.01</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
           </p>
         </section>
 
