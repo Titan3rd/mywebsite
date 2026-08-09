@@ -692,7 +692,7 @@
       <span class="brand-text"><strong>LMNT Framework</strong><span>User & integration manual</span></span>
     </a>
 
-    <span class="version-badge">Source 26.08.01</span>
+    <span class="version-badge">Source 26.08.04</span>
 
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -780,8 +780,8 @@
             tenancy, permissions, navigation, realtime communication, workflows, observability, settings, and the application shell.
           </p>
           <div class="hero-meta">
-            <span class="version-badge">Backend 26.08.01</span>
-            <span class="version-badge">UI 26.08.01</span>
+            <span class="version-badge">Backend 26.08.04</span>
+            <span class="version-badge">UI 26.08.04</span>
             <span class="version-badge">Spring Boot 3.4.4</span>
             <span class="version-badge">React 19 · Vite 8</span>
           </div>
@@ -793,8 +793,8 @@
         </div>
 
         <div class="callout">
-          <div class="callout-title">26.08.01 source highlights</div>
-          This snapshot moves LMNT to a modular package structure with <code>lmnt-core</code> as the primary backend artifact, separate optional backend and UI feature packages, a runnable development reactor, optional Support-to-Board integration and split CI jobs for aggregate and per-module builds.
+          <div class="callout-title">26.08.04 source highlights</div>
+          This snapshot keeps <code>lmnt-core</code> as the primary backend artifact, adds forgot-password support ticket intake, refines ticket visibility and counts, improves shell controls such as theme switching and the user menu, and keeps optional backend/UI feature packages independently consumable.
         </div>
 
         <section class="doc-section" id="architecture" data-search="architecture backend frontend maven npm platform product reusable package spring boot react ui shell modular core optional">
@@ -844,7 +844,7 @@
         <section class="doc-section" id="module-packages" data-search="module packages backend ui core operations workflow finance communication board webhook artifact npm maven">
           <span class="section-kicker">Foundation</span>
           <h2><a class="anchor" href="#module-packages">Modular package map</a></h2>
-          <p class="lead">Backend and UI modules are versioned together at <code>26.08.01</code>, but each package can be consumed and released separately.</p>
+          <p class="lead">Backend and UI modules are versioned together at <code>26.08.04</code>, but each package can be consumed and released separately.</p>
 
           <div class="table-wrap">
             <table>
@@ -1041,6 +1041,7 @@
             <li>Active routes are highlighted.</li>
             <li>Product branding at the top uses the same dynamic name and logo as login.</li>
             <li>The footer contains the active user and organization selector.</li>
+            <li>The Tickets entry can show a small superscript open-ticket count capped at <code>99+</code>; it refreshes from ticket stats and realtime ticket notifications.</li>
           </ul>
 
           <div class="callout">
@@ -1072,8 +1073,8 @@
             </div>
             <div class="card">
               <h3>Account controls</h3>
-              <p>Displays profile details, encrypted user ID, contact data, tenant, addresses, timezone, manager, roles and direct permissions.</p>
-              <p>Also links to notifications, conditionally exposes Settings and performs logout.</p>
+              <p>The compact dropdown header shows the user name plus a phone-first contact line. If no phone number exists it falls back to email, truncating long values with the full value available on hover.</p>
+              <p>The account dialog displays profile details, encrypted user ID, contact data, tenant, addresses, timezone, manager, roles and direct permissions. The menu also links to notifications, conditionally exposes Settings and performs logout.</p>
             </div>
           </div>
 
@@ -1296,7 +1297,8 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           <p>Subscriptions can restrict product menus and APIs using scope, status, dates, allowed permission keys and allowed URL prefixes. Current product access is evaluated before product menus are returned.</p>
 
           <h3>Tickets</h3>
-          <p>Users can create and follow support tickets. Tickets created inside a tenant or organization are visible to that tenant or organization, SADMIN users can review all scoped tickets, and assigned users can see tickets routed directly to them. The UI uses a modal detail view, shortened attachment labels and copyable ticket IDs.</p>
+          <p>Users can create and follow support tickets. Tickets created inside a tenant or organization are visible to that tenant or organization, SADMIN users can review all scoped tickets, and assigned users can see tickets routed directly to them. The UI defaults to open tickets, uses a modal detail view, shortened attachment labels, copyable ticket IDs and summary counts.</p>
+          <p>The login page can raise a dedicated forgot-password support ticket through its own public endpoint. The returned ticket number is copied to the clipboard and the ticket is marked as a forgot-password request in the support queue.</p>
           <p>Support lives in Core. The link from a support ticket to a work item is optional and is supplied by an integration such as the Board module; products that do not include Board still keep the ticket queue.</p>
 
           <div class="callout warning">
@@ -1332,6 +1334,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <li>Incoming and outgoing heartbeats: 20 seconds.</li>
             <li>Presence refresh: every 30 seconds while connected.</li>
             <li>Visible/focused tabs reconcile notifications and presence after returning to the foreground.</li>
+            <li>Ticket menu counts refresh when support ticket notifications link back to <code>/tickets</code>.</li>
             <li>Foreground activity is reported so Web Push is avoided while the app window is already active.</li>
             <li>Optional Redis realtime bridge supports events across multiple application instances.</li>
           </ul>
@@ -1459,7 +1462,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
   &lt;artifactId&gt;lmnt-core&lt;/artifactId&gt;
-  &lt;version&gt;26.08.01&lt;/version&gt;
+  &lt;version&gt;26.08.04&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
           </div>
           <p>Add optional backend modules as separate dependencies, for example <code>com.titan:lmnt-workflow</code> for workflow APIs or <code>com.titan:lmnt-board</code> for Board APIs.</p>
@@ -1581,9 +1584,9 @@ export const productRoutes: LmntProductRoute[] = [
           <div class="code-block">
             <div class="code-head"><span>Install UI package</span><button class="copy-btn">Copy</button></div>
             <pre><code>npm login --scope=@titan3rd --auth-type=legacy --registry=https://npm.pkg.github.com
-npm install @titan3rd/lmnt-ui-core@26.08.01</code></pre>
+npm install @titan3rd/lmnt-ui-core@26.08.04</code></pre>
           </div>
-          <p>Install optional UI modules separately, for example <code>npm install @titan3rd/lmnt-ui-workflow@26.08.01</code>.</p>
+          <p>Install optional UI modules separately, for example <code>npm install @titan3rd/lmnt-ui-workflow@26.08.04</code>.</p>
 
           <h3>Maven dependency</h3>
           <div class="code-block">
@@ -1598,13 +1601,13 @@ npm install @titan3rd/lmnt-ui-core@26.08.01</code></pre>
 &lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
   &lt;artifactId&gt;lmnt-core&lt;/artifactId&gt;
-  &lt;version&gt;26.08.01&lt;/version&gt;
+  &lt;version&gt;26.08.04&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
   &lt;artifactId&gt;lmnt-workflow&lt;/artifactId&gt;
-  &lt;version&gt;26.08.01&lt;/version&gt;
+  &lt;version&gt;26.08.04&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
           </div>
           <p>The <code>github</code> repository ID must match the server entry in <code>~/.m2/settings.xml</code>. Do not add optional modules unless the product uses them.</p>
@@ -1899,10 +1902,10 @@ npm run dev</code></pre></div>
           <span class="section-kicker">Source record</span>
           <h2><a class="anchor" href="#source-note">Source accuracy note</a></h2>
           <p>
-            This manual was updated from the local <strong>Framework_LMNT</strong> source snapshot, including the modular Maven reactor, UI workspace packages, workflow configuration, application properties, backend services and UI shell exports available on August 4, 2026.
+            This manual was updated from the local <strong>Framework_LMNT</strong> source snapshot, including the modular Maven reactor, UI workspace packages, workflow configuration, application properties, backend services and UI shell exports available on August 9, 2026.
           </p>
           <p>
-            The analyzed source reports backend and frontend package version <code>26.08.01</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
+            The analyzed source reports backend and frontend package version <code>26.08.04</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
           </p>
         </section>
 
