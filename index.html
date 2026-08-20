@@ -692,7 +692,7 @@
       <span class="brand-text"><strong>LMNT Framework</strong><span>User & integration manual</span></span>
     </a>
 
-    <span class="version-badge">Source 26.08.04</span>
+    <span class="version-badge">Source 26.08.06</span>
 
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -737,6 +737,7 @@
         <a href="#workflow-modules">Workflow & Board</a>
         <a href="#communication-modules">Communication</a>
         <a href="#finance-support">Finance & support</a>
+        <a href="#webhook-api-keys">Webhook API keys</a>
         <a href="#settings-module">Settings</a>
       </div>
       <div class="sidebar-group">
@@ -780,8 +781,8 @@
             tenancy, permissions, navigation, realtime communication, workflows, observability, settings, and the application shell.
           </p>
           <div class="hero-meta">
-            <span class="version-badge">Backend 26.08.04</span>
-            <span class="version-badge">UI 26.08.04</span>
+            <span class="version-badge">Backend 26.08.06</span>
+            <span class="version-badge">UI 26.08.06</span>
             <span class="version-badge">Spring Boot 3.4.4</span>
             <span class="version-badge">React 19 · Vite 8</span>
           </div>
@@ -793,8 +794,8 @@
         </div>
 
         <div class="callout">
-          <div class="callout-title">26.08.04 source highlights</div>
-          This snapshot keeps <code>lmnt-core</code> as the primary backend artifact, adds forgot-password support ticket intake, refines ticket visibility and counts, improves shell controls such as theme switching and the user menu, and keeps optional backend/UI feature packages independently consumable.
+          <div class="callout-title">26.08.06 source highlights</div>
+          This snapshot keeps <code>lmnt-core</code> as the primary backend artifact, adds the backend-compiled Workflow Designer, upgrades visual workflow storage and deployment, imports XML-only Flowable definitions into editable visual drafts, refines the designer linking UX, and keeps optional backend/UI feature packages independently consumable.
         </div>
 
         <section class="doc-section" id="architecture" data-search="architecture backend frontend maven npm platform product reusable package spring boot react ui shell modular core optional">
@@ -844,7 +845,7 @@
         <section class="doc-section" id="module-packages" data-search="module packages backend ui core operations workflow finance communication board webhook artifact npm maven">
           <span class="section-kicker">Foundation</span>
           <h2><a class="anchor" href="#module-packages">Modular package map</a></h2>
-          <p class="lead">Backend and UI modules are versioned together at <code>26.08.04</code>, but each package can be consumed and released separately.</p>
+          <p class="lead">Backend and UI modules are versioned together at <code>26.08.06</code>, but each package can be consumed and released separately.</p>
 
           <div class="table-wrap">
             <table>
@@ -1156,8 +1157,8 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <div class="module"><div><div class="module-name">Tenants</div><span class="status stable">Stable</span></div><div class="module-route">/tenants</div><div class="module-desc">Tenant isolation boundaries, domains, active state and deletion safeguards.</div></div>
             <div class="module"><div><div class="module-name">Organizations</div><span class="status stable">Stable</span></div><div class="module-route">/organizations</div><div class="module-desc">Organizations within tenants, type/contact/address metadata and crop-enabled logo management.</div></div>
             <div class="module"><div><div class="module-name">My Tasks</div><span class="status conditional">Flowable</span></div><div class="module-route">/myTasks</div><div class="module-desc">Assigned and claimable workflow tasks, claiming and completion, including product/Board workflow tasks.</div></div>
-            <div class="module"><div><div class="module-name">Workflow Designer</div><span class="status preview">Scaffold</span></div><div class="module-route">/workflowDesigner</div><div class="module-desc">Current source contains a placeholder screen; the functional workflow lifecycle is handled by Definitions, Tasks and Audit.</div></div>
-            <div class="module"><div><div class="module-name">Workflow Definitions</div><span class="status conditional">Flowable</span></div><div class="module-route">/workflowDefinitions</div><div class="module-desc">Deploy BPMN XML, validate/preview source, list versions, suspend/activate definitions and bind product features.</div></div>
+            <div class="module"><div><div class="module-name">Workflow Designer</div><span class="status conditional">Flowable</span></div><div class="module-route">/workflowDesigner</div><div class="module-desc">Visual node editor for workflow drafts, backend BPMN compilation, save-before-XML behavior, drag-to-link connections, deployed-definition catalog merge and XML import into editable drafts.</div></div>
+            <div class="module"><div><div class="module-name">Workflow Definitions</div><span class="status conditional">Flowable</span></div><div class="module-route">/workflowDefinitions</div><div class="module-desc">Runtime catalog for deployed workflow versions: deploy BPMN XML, view source, list versions, suspend/activate definitions and bind product features.</div></div>
             <div class="module"><div><div class="module-name">Workflow Audit</div><span class="status conditional">Flowable</span></div><div class="module-route">/workflowAudit</div><div class="module-desc">Product workflow registry, instance state, source/business context, failures and detailed process history.</div></div>
             <div class="module"><div><div class="module-name">The Board</div><span class="status stable">Stable</span></div><div class="module-route">/board</div><div class="module-desc">Projects, Kanban tasks, assignment, priority/type, status movement and approval workflow integration.</div></div>
             <div class="module"><div><div class="module-name">Board Calendar</div><span class="status stable">Stable</span></div><div class="module-route">/board/calendar</div><div class="module-desc">Unified calendar view over registered calendar providers, currently Board tasks and team availability.</div></div>
@@ -1166,6 +1167,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <div class="module"><div><div class="module-name">AI Chat</div><span class="status conditional">Ollama</span></div><div class="module-route">/ai-chat</div><div class="module-desc">Streaming AI conversations, model selection, health checking, stop response and configurable context window.</div></div>
             <div class="module"><div><div class="module-name">The Wall</div><span class="status stable">Stable</span></div><div class="module-route">/wall</div><div class="module-desc">Announcements and events with images, comments, reactions, pinning and RSVP state.</div></div>
             <div class="module"><div><div class="module-name">Notifications</div><span class="status stable">Stable</span></div><div class="module-route">/notifications</div><div class="module-desc">All personal and broadcast alerts, severity/status filters, read state, deep links, browser notification status and bulk mark-read.</div></div>
+            <div class="module"><div><div class="module-name">Webhook API Keys</div><span class="status stable">Stable</span></div><div class="module-route">/keys</div><div class="module-desc">Product-scoped API key creation, endpoint access mapping, request history review and integration secret lifecycle guidance.</div></div>
             <div class="module"><div><div class="module-name">Payments</div><span class="status conditional">Razorpay</span></div><div class="module-route">/payments</div><div class="module-desc">Razorpay dashboard, payment history, orders, filtering, export, checkout, verification and QR-code workflows.</div></div>
             <div class="module"><div><div class="module-name">Payroll</div><span class="status preview">Demo UI</span></div><div class="module-route">/payroll</div><div class="module-desc">Reference payroll register and payout interface. The source explicitly marks current data/actions as dummy preview behavior.</div></div>
             <div class="module"><div><div class="module-name">Expense Claims</div><span class="status preview">Demo UI</span></div><div class="module-route">/expense-claims</div><div class="module-desc">Reference claim submission, policy and payout UI. Current claim storage/upload behavior is dummy and not production-backed.</div></div>
@@ -1218,12 +1220,31 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           <h3>Workflow engine</h3>
           <p>LMNT integrates Flowable using a separate configurable datasource. Product features can bind to process-definition keys without duplicating BPMN XML in product tables.</p>
           <ul>
+            <li><strong>Designer:</strong> create and edit visual workflow drafts; the backend compiler generates BPMN XML after save.</li>
             <li><strong>Definitions:</strong> deploy, list, inspect XML, suspend and activate process definitions.</li>
             <li><strong>Bindings:</strong> connect a product feature key to a process definition.</li>
             <li><strong>My Tasks:</strong> assigned and claimable tasks with completion variables.</li>
             <li><strong>Integration API:</strong> start-or-get by business key, correlate messages, update variables, complete tasks and cancel instances.</li>
             <li><strong>Audit:</strong> registry state plus detailed historic activities.</li>
           </ul>
+
+          <h3>Visual designer lifecycle</h3>
+          <p>The Designer is the editable source for new workflows. It stores visual JSON in <code>lmnt_workflow_designs</code>, compiles BPMN XML on the backend, and deploys the compiled XML into Flowable as a process definition version.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Use case</th><th>Expected flow</th></tr></thead>
+              <tbody>
+                <tr><td>Create a new workflow</td><td>Open <code>/workflowDesigner</code>, create a visual draft, save it, then deploy it. The deployed version appears in Workflow Definitions.</td></tr>
+                <tr><td>Edit a visual workflow</td><td>Open the saved designer draft, make changes, save, then deploy. Flowable receives a new version for the same process key.</td></tr>
+                <tr><td>Edit an XML-only deployed workflow</td><td>Use <strong>Import to designer</strong> from the Designer catalog. LMNT reads the deployed BPMN XML, converts supported nodes and sequence flows into the visual editor, then opens it as an unsaved visual draft.</td></tr>
+                <tr><td>View generated XML</td><td>Save the draft first. If the editor has unsaved changes, XML preview is dimmed and asks the user to save so stale XML is not mistaken for the current graph.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warning">
+            <div class="callout-title">Designer and Definitions are different views of one lifecycle</div>
+            Workflow Definitions is the runtime Flowable catalog. Workflow Designer is the editable source catalog. Deployed XML-only workflows must be imported before visual editing; after save and deploy, the resulting runtime version is visible in Definitions.
+          </div>
 
           <h3>Product workflow integration</h3>
           <p>Products interact with workflows through LMNT's integration facade, using business keys and feature keys instead of raw Flowable IDs in product code.</p>
@@ -1304,6 +1325,31 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
           <div class="callout warning">
             <div class="callout-title">Preview modules</div>
             Payroll and Expense Claims are intentionally presented as demo/reference UI in the current source. Do not describe their dummy data, uploads or payout actions as production functionality.
+          </div>
+        </section>
+
+        <section class="doc-section" id="webhook-api-keys" data-search="webhook api keys lmnt_api_keys endpoints request history external integration token secret rotation">
+          <span class="section-kicker">Integrations</span>
+          <h2><a class="anchor" href="#webhook-api-keys">Webhook API keys</a></h2>
+          <p class="lead">The webhook module lets authorized products expose controlled inbound endpoints without putting long-lived secrets in frontend code.</p>
+
+          <div class="grid two">
+            <div class="card">
+              <h3>Key records</h3>
+              <p>API keys are stored in <code>lmnt_api_keys</code> with product, tenant and organization context where applicable. Treat generated key values as secrets and rotate them when an integration owner changes.</p>
+            </div>
+            <div class="card">
+              <h3>Endpoint mappings</h3>
+              <p><code>lmnt_api_key_endpoints</code> maps an authorized key to the endpoints it may call. Keep allowed endpoints narrow and review them before enabling an external integration.</p>
+            </div>
+            <div class="card">
+              <h3>Request history</h3>
+              <p><code>lmnt_api_key_request_history</code> captures usage metadata for troubleshooting, auditing and abuse investigation.</p>
+            </div>
+            <div class="card">
+              <h3>Secret handling</h3>
+              <p>Pass webhook API keys through server-side environment variables or a secrets manager. Never place webhook keys in public HTML, bundled JavaScript, screenshots or documentation examples.</p>
+            </div>
           </div>
         </section>
 
@@ -1462,7 +1508,7 @@ HMS_BOOKINGS_MENU_MANAGE</code></pre>
             <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
   &lt;artifactId&gt;lmnt-core&lt;/artifactId&gt;
-  &lt;version&gt;26.08.04&lt;/version&gt;
+  &lt;version&gt;26.08.06&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
           </div>
           <p>Add optional backend modules as separate dependencies, for example <code>com.titan:lmnt-workflow</code> for workflow APIs or <code>com.titan:lmnt-board</code> for Board APIs.</p>
@@ -1574,19 +1620,20 @@ export const productRoutes: LmntProductRoute[] = [
           <p>LMNT packages are proprietary and distributed through GitHub Packages to authorized users.</p>
 
           <h3>Required token scopes for consumers</h3>
-          <p><code>read:packages</code> and <code>repo</code>.</p>
+          <p><code>read:packages</code> and <code>repo</code>. Store the token as an environment variable or CI secret such as <code>GITHUB_TOKEN</code>; do not commit personal access tokens or API keys.</p>
 
           <h3>NPM registry</h3>
           <div class="code-block">
             <div class="code-head"><span>.npmrc</span><button class="copy-btn">Copy</button></div>
-            <pre><code>@titan3rd:registry=https://npm.pkg.github.com</code></pre>
+            <pre><code>@titan3rd:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}</code></pre>
           </div>
           <div class="code-block">
             <div class="code-head"><span>Install UI package</span><button class="copy-btn">Copy</button></div>
-            <pre><code>npm login --scope=@titan3rd --auth-type=legacy --registry=https://npm.pkg.github.com
-npm install @titan3rd/lmnt-ui-core@26.08.04</code></pre>
+            <pre><code>set GITHUB_TOKEN=ghp_your_read_packages_token
+npm install @titan3rd/lmnt-ui-core@26.08.06</code></pre>
           </div>
-          <p>Install optional UI modules separately, for example <code>npm install @titan3rd/lmnt-ui-workflow@26.08.04</code>.</p>
+          <p>Install optional UI modules separately, for example <code>npm install @titan3rd/lmnt-ui-workflow@26.08.06</code>.</p>
 
           <h3>Maven dependency</h3>
           <div class="code-block">
@@ -1601,16 +1648,28 @@ npm install @titan3rd/lmnt-ui-core@26.08.04</code></pre>
 &lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
   &lt;artifactId&gt;lmnt-core&lt;/artifactId&gt;
-  &lt;version&gt;26.08.04&lt;/version&gt;
+  &lt;version&gt;26.08.06&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;dependency&gt;
   &lt;groupId&gt;com.titan&lt;/groupId&gt;
   &lt;artifactId&gt;lmnt-workflow&lt;/artifactId&gt;
-  &lt;version&gt;26.08.04&lt;/version&gt;
+  &lt;version&gt;26.08.06&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
           </div>
-          <p>The <code>github</code> repository ID must match the server entry in <code>~/.m2/settings.xml</code>. Do not add optional modules unless the product uses them.</p>
+          <p>The <code>github</code> repository ID must match the server entry in <code>~/.m2/settings.xml</code>. Use an environment-backed password such as <code>${env.GITHUB_TOKEN}</code> in Maven settings and do not add optional modules unless the product uses them.</p>
+          <div class="code-block">
+            <div class="code-head"><span>~/.m2/settings.xml</span><button class="copy-btn">Copy</button></div>
+            <pre><code>&lt;settings&gt;
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;github&lt;/id&gt;
+      &lt;username&gt;YOUR_GITHUB_USERNAME&lt;/username&gt;
+      &lt;password&gt;${env.GITHUB_TOKEN}&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+&lt;/settings&gt;</code></pre>
+          </div>
         </section>
 
         <section class="doc-section" id="ci-releases" data-search="ci github actions release deploy publish backend ui all module changed paths pull request push">
@@ -1716,7 +1775,7 @@ npm run dev</code></pre></div>
           <p>Nginx should proxy <code>/api/web-push/</code> to the backend before the generic SPA fallback so <code>/api/web-push/public-key</code> and <code>/api/web-push/service-worker.js</code> are served by Spring. The normal <code>/api/</code> proxy is usually sufficient, but an explicit Web Push block makes the service-worker route harder to misroute or cache incorrectly.</p>
         </section>
 
-        <section class="doc-section" id="security" data-search="security secrets jwt cookie https csrf same site bcrypt authorization package tokens production inactivity disable audit">
+        <section class="doc-section" id="security" data-search="security secrets jwt cookie https csrf same site bcrypt authorization package tokens api keys production inactivity disable audit">
           <span class="section-kicker">Operations</span>
           <h2><a class="anchor" href="#security">Security guidance</a></h2>
           <ul class="checklist">
@@ -1724,7 +1783,7 @@ npm run dev</code></pre></div>
             <li>Enable secure cookies behind HTTPS.</li>
             <li>Restrict WebSocket allowed origins to trusted product origins.</li>
             <li>Serve production products over HTTPS before relying on Web Push subscriptions.</li>
-            <li>Keep package tokens and registry credentials outside source control.</li>
+            <li>Keep package tokens, API keys and registry credentials outside source control.</li>
             <li>Replace all development Compose passwords.</li>
             <li>Do not expose AI, MinIO, Redis, RabbitMQ, database or LiveKit secrets through frontend APIs.</li>
             <li>Use backend <code>@RequiresPermission</code> checks even when a frontend action is hidden.</li>
@@ -1750,7 +1809,7 @@ npm run dev</code></pre></div>
                 <li>Use environment-specific JWT and encryption secrets.</li>
                 <li>Set <code>LMNT_AUTH_COOKIE_SECURE=true</code> behind HTTPS.</li>
                 <li>Restrict <code>LMNT_WEBSOCKET_ALLOWED_ORIGINS</code> to trusted product origins.</li>
-                <li>Remove package tokens from source, images and frontend-accessible files.</li>
+                <li>Remove package tokens, API keys and registry credentials from source, images and frontend-accessible files.</li>
               </ul>
             </div>
             <div class="card">
@@ -1799,7 +1858,7 @@ npm run dev</code></pre></div>
                 <tr><td>Desktop alerts are unavailable</td><td>Check browser notification permission, HTTPS/service-worker availability, <code>/api/web-push/public-key</code>, stable one-line <code>LMNT_WEB_PUSH_*</code> VAPID keys and reverse-proxy routing for <code>/api/web-push/service-worker.js</code>.</td></tr>
                 <tr><td>Workflow does not start</td><td>Confirm the BPMN definition is deployed, the feature binding exists, the business key is unique for the tenant and role assignments match visible LMNT roles.</td></tr>
                 <tr><td>AI is offline</td><td>Check the Ollama/AI endpoint, selected model and <code>/api/app/health</code>.</td></tr>
-                <tr><td>Package install returns 401/403</td><td>Verify classic PAT scopes, GitHub Packages login, <code>.npmrc</code>, Maven server ID and repository access.</td></tr>
+                <tr><td>Package install returns 401/403</td><td>Verify classic PAT scopes, <code>GITHUB_TOKEN</code> availability, GitHub Packages registry mapping, <code>.npmrc</code>, Maven server ID and repository access.</td></tr>
                 <tr><td>Theme or language does not update</td><td>Confirm Settings permissions, theme API response, local theme mode and availability of the requested i18n bundle.</td></tr>
               </tbody>
             </table>
@@ -1827,7 +1886,7 @@ npm run dev</code></pre></div>
                 <tr><td>Sidebar visibility</td><td>Backend <code>/api/menu</code></td><td>Menu row active state, product code, permission and display order.</td></tr>
                 <tr><td>Action access</td><td>Backend permission service</td><td>Role grants, direct grants, scope and active organization.</td></tr>
                 <tr><td>Branding and app version</td><td><code>/api/app-info</code> and product metadata</td><td>Product record, product logo path and frontend package version.</td></tr>
-                <tr><td>Workflow process</td><td>Flowable definitions plus LMNT workflow bindings</td><td>Definition deployment, feature key binding, business key and tenant.</td></tr>
+                <tr><td>Workflow process</td><td>Designer drafts, Flowable definitions and LMNT workflow bindings</td><td>Visual draft save state, definition deployment, feature key binding, business key and tenant.</td></tr>
                 <tr><td>Deployment behavior</td><td>Environment variables and reverse proxy config</td><td>Secrets, service endpoints, allowed origins, communication scope, Web Push keys, service-worker proxy routing and retention settings.</td></tr>
               </tbody>
             </table>
@@ -1902,10 +1961,10 @@ npm run dev</code></pre></div>
           <span class="section-kicker">Source record</span>
           <h2><a class="anchor" href="#source-note">Source accuracy note</a></h2>
           <p>
-            This manual was updated from the local <strong>Framework_LMNT</strong> source snapshot, including the modular Maven reactor, UI workspace packages, workflow configuration, application properties, backend services and UI shell exports available on August 9, 2026.
+            This manual was updated from the local <strong>Framework_LMNT</strong> source snapshot, including the modular Maven reactor, UI workspace packages, workflow configuration, application properties, backend services and UI shell exports available on August 20, 2026.
           </p>
           <p>
-            The analyzed source reports backend and frontend package version <code>26.08.04</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
+            The analyzed source reports backend and frontend package version <code>26.08.06</code>. Deployed products may differ through package version, product routes, menu data, permissions, subscriptions, enabled modules and infrastructure configuration.
           </p>
         </section>
 
