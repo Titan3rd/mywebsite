@@ -45,20 +45,29 @@
       transform-origin: 50% 12%;
       will-change: opacity, filter, transform;
       transition:
-        opacity 2100ms cubic-bezier(.22,.8,.28,1),
-        filter 2400ms cubic-bezier(.22,.8,.28,1),
-        transform 2400ms cubic-bezier(.22,.8,.28,1);
+        opacity 2850ms cubic-bezier(.22,.8,.28,1),
+        filter 3000ms cubic-bezier(.22,.8,.28,1),
+        transform 3000ms cubic-bezier(.22,.8,.28,1);
     }
 
     #manual-root.is-ready {
       opacity: .24;
     }
 
-    #manual-root.is-revealing,
+    /* Long middle reveal: the page becomes readable, but stays slightly soft
+       while the LMNT mark is still present. */
+    #manual-root.is-revealing {
+      opacity: .74;
+      filter: blur(5px) saturate(.94);
+      transform: scale(.992);
+    }
+
+    /* Final page settle is synchronized with the logo/backdrop fade. */
     #manual-root.is-finishing {
       opacity: 1;
       filter: blur(0) saturate(1);
       transform: scale(1);
+      transition-duration: 1050ms, 1100ms, 1100ms;
     }
 
     #manual-root.is-fast {
@@ -88,17 +97,23 @@
       background: var(--intro-bg);
       opacity: 1;
       will-change: opacity;
-      transition: opacity 2400ms cubic-bezier(.22,.8,.28,1);
+      transition: opacity 3000ms cubic-bezier(.22,.8,.28,1);
     }
 
+    /* Keep a visible veil behind LMNT instead of exposing the fully sharp page
+       while the mark is still floating over it. */
     #lmnt-intro.is-revealing #lmnt-backdrop {
-      opacity: .10;
+      opacity: .38;
     }
 
-    #lmnt-intro.is-finishing #lmnt-backdrop,
+    #lmnt-intro.is-finishing #lmnt-backdrop {
+      opacity: 0;
+      transition-duration: 1100ms;
+    }
+
     #lmnt-intro.is-fast #lmnt-backdrop {
       opacity: 0;
-      transition-duration: 760ms;
+      transition-duration: 900ms;
     }
 
     #lmnt-intro-mark {
@@ -108,9 +123,9 @@
       height: auto;
       filter: drop-shadow(0 18px 30px rgba(15,23,42,.08));
       transition:
-        opacity 720ms ease,
-        transform 760ms cubic-bezier(.22,.9,.3,1),
-        filter 760ms ease;
+        opacity 1050ms ease,
+        transform 1100ms cubic-bezier(.22,.9,.3,1),
+        filter 1100ms ease;
     }
 
     #lmnt-intro.is-revealing #lmnt-intro-mark {
@@ -122,6 +137,10 @@
       opacity: 0;
       transform: scale(.955);
       filter: blur(1.5px) drop-shadow(0 10px 20px rgba(15,23,42,.04));
+    }
+
+    #lmnt-intro.is-fast #lmnt-intro-mark {
+      transition-duration: 850ms, 900ms, 900ms;
     }
 
     #lmnt-skip-hint {
@@ -250,7 +269,7 @@
           manualRoot.classList.add('is-finishing');
         }
 
-        const delay = reducedMotion ? 0 : (fast ? 950 : 820);
+        const delay = reducedMotion ? 0 : (fast ? 950 : 1120);
 
         window.setTimeout(() => {
           intro.remove();
@@ -276,7 +295,7 @@
       if (reducedMotion) {
         finishTimer = window.setTimeout(() => completeIntro(false), 150);
       } else {
-        revealTimer = window.setTimeout(startReveal, 3250);
+        revealTimer = window.setTimeout(startReveal, 2850);
         finishTimer = window.setTimeout(() => completeIntro(false), 6000);
       }
     })();
