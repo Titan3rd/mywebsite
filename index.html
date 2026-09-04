@@ -10,71 +10,33 @@
   <style>
     :root {
       --intro-bg: #f8fafc;
-      --intro-text: #111827;
       --intro-muted: #64748b;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
         --intro-bg: #0b1018;
-        --intro-text: #f4f4f5;
         --intro-muted: #94a3b8;
       }
     }
 
     html[data-theme="light"] {
       --intro-bg: #f8fafc;
-      --intro-text: #111827;
       --intro-muted: #64748b;
     }
 
     html[data-theme="dark"] {
       --intro-bg: #0b1018;
-      --intro-text: #f4f4f5;
       --intro-muted: #94a3b8;
     }
 
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; }
 
+    /* Deliberately neutral wrapper. Never filter/transform this element:
+       the injected manual contains its own fixed header and sticky navigation. */
     #manual-root {
       min-height: 100vh;
-      opacity: .16;
-      filter: blur(20px) saturate(.78);
-      transform: scale(.982);
-      transform-origin: 50% 12%;
-      will-change: opacity, filter, transform;
-      transition:
-        opacity 2850ms cubic-bezier(.22,.8,.28,1),
-        filter 3000ms cubic-bezier(.22,.8,.28,1),
-        transform 3000ms cubic-bezier(.22,.8,.28,1);
-    }
-
-    #manual-root.is-ready {
-      opacity: .24;
-    }
-
-    /* Long middle reveal: the page becomes readable, but stays slightly soft
-       while the LMNT mark is still present. */
-    #manual-root.is-revealing {
-      opacity: .74;
-      filter: blur(5px) saturate(.94);
-      transform: scale(.992);
-    }
-
-    /* Final page settle is synchronized with the logo/backdrop fade. */
-    #manual-root.is-finishing {
-      opacity: 1;
-      filter: blur(0) saturate(1);
-      transform: scale(1);
-      transition-duration: 1050ms, 1100ms, 1100ms;
-    }
-
-    #manual-root.is-fast {
-      opacity: 1;
-      filter: blur(0) saturate(1);
-      transform: scale(1);
-      transition-duration: 820ms, 900ms, 900ms;
     }
 
     #lmnt-intro {
@@ -90,29 +52,41 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* Blur and veil the already-correct page from the overlay itself.
+       This avoids changing any geometry or positioning inside the manual. */
     #lmnt-backdrop {
       position: absolute;
       inset: 0;
       z-index: 0;
       background: var(--intro-bg);
-      opacity: 1;
-      will-change: opacity;
-      transition: opacity 3000ms cubic-bezier(.22,.8,.28,1);
+      -webkit-backdrop-filter: blur(20px) saturate(.80);
+      backdrop-filter: blur(20px) saturate(.80);
+      will-change: background, backdrop-filter;
+      transition:
+        background 3150ms cubic-bezier(.22,.8,.28,1),
+        -webkit-backdrop-filter 3150ms cubic-bezier(.22,.8,.28,1),
+        backdrop-filter 3150ms cubic-bezier(.22,.8,.28,1);
     }
 
-    /* Keep a visible veil behind LMNT instead of exposing the fully sharp page
-       while the mark is still floating over it. */
+    /* Long reveal. Keep enough veil + blur that LMNT still has a visual stage. */
     #lmnt-intro.is-revealing #lmnt-backdrop {
-      opacity: .38;
+      background: color-mix(in srgb, var(--intro-bg) 52%, transparent);
+      -webkit-backdrop-filter: blur(10px) saturate(.90);
+      backdrop-filter: blur(10px) saturate(.90);
     }
 
+    /* Logo and final veil disappear together. */
     #lmnt-intro.is-finishing #lmnt-backdrop {
-      opacity: 0;
-      transition-duration: 1100ms;
+      background: transparent;
+      -webkit-backdrop-filter: blur(0) saturate(1);
+      backdrop-filter: blur(0) saturate(1);
+      transition-duration: 1150ms;
     }
 
     #lmnt-intro.is-fast #lmnt-backdrop {
-      opacity: 0;
+      background: transparent;
+      -webkit-backdrop-filter: blur(0) saturate(1);
+      backdrop-filter: blur(0) saturate(1);
       transition-duration: 900ms;
     }
 
@@ -174,20 +148,18 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      #manual-root {
-        opacity: 1;
-        filter: none;
-        transform: none;
-        transition: none;
-      }
       #lmnt-intro-mark { display: none; }
       #lmnt-skip-hint { display: none; }
-      #lmnt-backdrop { transition: none; }
+      #lmnt-backdrop {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        transition: none;
+      }
     }
   </style>
 </head>
 <body>
-  <main id="manual-root" aria-live="polite"></main>
+  <div id="manual-root" aria-live="polite"></div>
 
   <div id="lmnt-intro" role="button" tabindex="0" aria-label="LMNT introduction. Tap or press Enter to continue faster.">
     <div id="lmnt-backdrop" aria-hidden="true"></div>
@@ -237,7 +209,6 @@
           if (title?.textContent) document.title = title.textContent;
 
           manualRoot.innerHTML = parsed.body.innerHTML;
-          manualRoot.classList.add('is-ready');
 
           const manualScript = parsed.querySelector('script');
           if (manualScript?.textContent) runManualScript(manualScript.textContent);
@@ -251,7 +222,6 @@
         if (finished || revealStarted) return;
         revealStarted = true;
         intro.classList.add('is-revealing');
-        manualRoot.classList.add('is-revealing');
       }
 
       function completeIntro(fast = false) {
@@ -262,18 +232,15 @@
 
         if (fast) {
           intro.classList.add('is-fast');
-          manualRoot.classList.add('is-fast');
         } else {
           startReveal();
           intro.classList.add('is-finishing');
-          manualRoot.classList.add('is-finishing');
         }
 
-        const delay = reducedMotion ? 0 : (fast ? 950 : 1120);
+        const delay = reducedMotion ? 0 : (fast ? 950 : 1180);
 
         window.setTimeout(() => {
           intro.remove();
-          manualRoot.classList.remove('is-fast');
         }, delay);
       }
 
